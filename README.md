@@ -19,5 +19,5 @@ Author Transform Variants
 5. Click into the repository folder, and then select the install.py file
 6. Click 'Open'
 7. The install.py script will be loaded into the Script Editor. Click the blue run button (▶) to run the script
-8. Locate and select this repostory folder
+8. Locate and select this repository folder
 9. Click 'Save' - NatashaUSDTools should be loaded into a shelf
