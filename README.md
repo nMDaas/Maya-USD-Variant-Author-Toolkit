@@ -2,14 +2,25 @@
 In progress!
 
 ### Variant Authoring Tools
-<div align="left">
-<img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/UsdFileVariant_AIcon.png" object-fit="contain" width="50px" height=auto>
-Author Variants From USD Files
-</div>
-<div align="left">
-<img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/TransformVariant_AIcon.png" object-fit="contain" width="50px" height="218px">
-Author Transform Variants
-</div>
+<table>
+  <tr valign="middle">
+    <td>
+      <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/UsdFileVariant_AIcon.png" width="50px">
+    </td>
+    <td>
+      Author Variants From USD Files
+    </td>
+  </tr>
+  <tr valign="middle">
+    <td>
+      <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/TransformVariant_AIcon.png" width="50px">
+    </td>
+    <td>
+      Author Transform Variants
+    </td>
+  </tr>
+</table>
+
 
 ### Installation
 1. Download and unzip this repository in a location of your choosing.
