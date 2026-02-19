@@ -1,7 +1,7 @@
 ## USD Variant Authoring Tools for Maya
 In progress!
 
-### Tools
+### Variant Authoring Tools
 <div align="left">
 <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/UsdFileVariant_AIcon.png" object-fit="contain" width="50px" height=auto>
 Author Variants From USD Files
