@@ -95,6 +95,7 @@ class GeoVariantAuthor(VariantAuthoringTool):
         # Setting object names
         variant_name_line_edit.setObjectName(f"variant_input_{rowIndex}")
         folderButton.setObjectName(f"select_button_{rowIndex}")
+        setButton.setObjectName(f"set_button_{rowIndex}")
 
         # Add to the grid layout in new row
         ui.gridLayout.addWidget(label, rowIndex, 0)
@@ -102,15 +103,18 @@ class GeoVariantAuthor(VariantAuthoringTool):
         ui.gridLayout.addWidget(setButton, rowIndex, 2)   
         ui.gridLayout.addWidget(folderButton, rowIndex, 3)   
 
-        setButton.clicked.connect(lambda checked=False, r=rowIndex: self.setGeo(r))
+        setButton.clicked.connect(lambda checked=False, r=rowIndex: self.setGeo(ui, r))
         folderButton.clicked.connect(lambda checked=False, r=rowIndex: self.showDialogForUSDFileSelection(ui, r))  
 
     # Set which geo is connected to the row for variant creation
-    def setGeo(self, row_number):
+    def setGeo(self, ui, row_number):
         selection = cmds.ls(selection=True, long=True)
         targetGeo_long = selection[0]
-        targetGeo = targetGeo_long.split("|")[-1]
-        self.geo_dict[row_number] = targetGeo
+        self.geo_dict[row_number] = targetGeo_long
+
+        # if successful, change pinned icon
+        set_button = ui.findChild(QPushButton, f"set_button_{row_number}")
+        set_button.setIcon(QIcon(str(self.pinned_icon)))
 
     # open dialog for user to select USD file - linked to row number
     def showDialogForUSDFileSelection(self, ui, row_number):
@@ -159,8 +163,8 @@ class GeoVariantAuthor(VariantAuthoringTool):
             if v_name_input_widget:
                 v_name_input = v_name_input_widget.text().strip() # strip white spaces just in case
                 file_selected = self.usd_filepath_dict[i]
-                targetGeo = self.geo_dict[i]
-                self.createVariant(vset, v_name_input, targetGeo, file_selected)
+                targetGeo_long = self.geo_dict[i]
+                self.createVariant(vset, v_name_input, targetGeo_long, file_selected)
 
         # set default variant as the first variant, only if the variant set is new
         if self.creatingNewVariant:
@@ -169,7 +173,11 @@ class GeoVariantAuthor(VariantAuthoringTool):
             vset.SetVariantSelection(v_name_input_1)
 
     # Creates a singular variant for a set
-    def createVariant(self, vset, variant_name, targetGeo, file_selected):
+    def createVariant(self, vset, variant_name, targetGeo_long, file_selected):
+        # Export targetGeo to USD file
+        self.exportBaseMeshAsUSD(targetGeo_long, file_selected)
+        print(f"{targetGeo_long} exported to {file_selected}")
+
         """
         vset.AddVariant(variant_name)
 
@@ -182,5 +190,53 @@ class GeoVariantAuthor(VariantAuthoringTool):
             attr.Set("usd_file")
         """
         
-        print(f"Variant '{variant_name}' authored with {targetGeo} at: {file_selected}")
 
+    def exportBaseMeshAsUSD(self, targetGeo_long, export_path):
+        targetGeo = targetGeo_long.split("|")[-1]
+
+        # These inputs CAN come from the user and can be customizable
+        # However, for now, these are set in stone
+        exportUVS = 1
+        exportSkels = "none"
+        exportSkin = "none"
+        exportBlendShapes = 0
+        exportDisplayColor = 0
+        exportColorSets = 1
+        exportComponentTags = 1
+        defaultMeshScheme = "catmullClark"
+        animation = 0
+        shadingMode = "useRegistry"
+        convertMaterialsToArray = ["MaterialX"]
+        jobContextArray = ["Arnold"]
+
+        # Convert arrays to strings
+        convertMaterialsTo = ",".join(convertMaterialsToArray)
+        jobContext = ",".join(jobContextArray)
+
+        # defaultUSDFormat, rootPrimType, and exportMaterials are not customizable
+        # This is because these settings are required to export the base mesh as USD without any other settings
+        opts = (
+            f"exportUVs={exportUVS};"
+            f"exportSkels={exportSkels};"
+            f"exportSkin={exportSkin};"
+            f"exportBlendShapes={exportBlendShapes};"
+            f"exportDisplayColor={exportDisplayColor};"
+            f"exportColorSets={exportColorSets};"
+            f"exportComponentTags={exportComponentTags};"
+            f"defaultMeshScheme={defaultMeshScheme};"
+            f"animation={animation};"
+            f"defaultUSDFormat=usda;"
+            f"rootPrim={targetGeo};"
+            f"rootPrimType=scope;"
+            f"exportMaterials=0;"
+            f"shadingMode={shadingMode};"
+            f"convertMaterialsTo=[{convertMaterialsTo}];"
+            f"jobContext=[{jobContext}]"
+        )
+
+        # Select geometry to be exported
+        cmds.select(targetGeo_long)
+
+        # Execute the export
+        # TODO: Check if something is selected by the user and raise a warning if not
+        cmds.file(export_path, force=True, options=opts, type="USD Export", preserveReferences=True, exportSelected=True)
