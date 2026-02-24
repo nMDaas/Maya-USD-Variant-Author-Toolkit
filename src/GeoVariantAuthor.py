@@ -47,14 +47,16 @@ class GeoVariantAuthor(VariantAuthoringTool):
         vset = self.createVariantSet(variant_set_name)
         
         self.createVariantsForSet(ui, vset)
+
+        self.apply_pipeline_tag(variant_set_name)
+
         ui.close()
 
     def setupUserInterface(self, ui):
         super().setupUserInterface(ui)
 
-        """
-        # Check if the targetPrim already has a variant of this type (usd_file)
-        exists, existing_vsets = self.find_authoring_variant_sets("material")
+        # Check if the targetPrim already has a variant of this type (geo)
+        exists, existing_vsets = self.find_authoring_variant_sets("geo")
         remove_widget = ui.findChild(QPushButton, "vs_remove")
         if exists:
             self.creatingNewVariant = False
@@ -63,7 +65,6 @@ class GeoVariantAuthor(VariantAuthoringTool):
                 remove_widget.show() 
         else:
             remove_widget.hide() 
-        """
 
         ui.final_button.setText("Create Variants")
         ui.final_button.clicked.connect(partial(self.apply, ui))
@@ -184,20 +185,7 @@ class GeoVariantAuthor(VariantAuthoringTool):
         # Go inside the variant and add the file reference
         with vset.GetVariantEditContext():
             self.targetPrim.GetPayloads().AddPayload(file_selected)
-        print(f"Variant '{variant_name}' authored with reference to: {file_selected}")
-
-        """
-        vset.AddVariant(variant_name)
-
-        vset.SetVariantSelection(variant_name)
-
-        # Go inside the variant and add the file reference
-        with vset.GetVariantEditContext():
-            self.targetPrim.GetReferences().AddReference(file_selected)
-            attr = self.targetPrim.CreateAttribute("variant_set_pipeline_tag", Sdf.ValueTypeNames.String)
-            attr.Set("usd_file")
-        """
-        
+        print(f"Variant '{variant_name}' authored with reference to: {file_selected}")   
 
     def exportBaseMeshAsUSD(self, targetGeo_long, export_path):
         targetGeo = targetGeo_long.split("|")[-1]
@@ -248,3 +236,23 @@ class GeoVariantAuthor(VariantAuthoringTool):
         # Execute the export
         # TODO: Check if something is selected by the user and raise a warning if not
         cmds.file(export_path, force=True, options=opts, type="USD Export", preserveReferences=True, exportSelected=True)
+
+    def apply_pipeline_tag(self, variant_set_name):
+        vset = self.targetPrim.GetVariantSet(variant_set_name)
+        attr = self.targetPrim.GetAttribute("variant_set_pipeline_tag")
+        variant_names = vset.GetVariantNames()
+
+        stage = self.targetPrim.GetStage()
+        target_layer = stage.GetRootLayer()
+
+        for var_name in variant_names:
+            vset.SetVariantSelection(var_name)
+
+            with vset.GetVariantEditContext(target_layer):
+                attr = self.targetPrim.GetAttribute("variant_set_pipeline_tag")
+
+                if (attr):
+                    attr.Set("geo")
+                else:
+                    attr = self.targetPrim.CreateAttribute("variant_set_pipeline_tag", Sdf.ValueTypeNames.String)
+                    attr.Set("geo")    
