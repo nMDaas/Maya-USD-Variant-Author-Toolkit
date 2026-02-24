@@ -64,7 +64,7 @@ class MaterialVariantAuthor(VariantAuthoringTool):
         variant_name_line_edit = QLineEdit()
         setButton = QPushButton()
 
-        # Setting folderButton settings
+        # Setting setButton settings
         setButton.setIcon(QIcon(str(self.pin_icon)))
         setButton.setIconSize(QSize(22,22))
         setButton.setFlat(True)
