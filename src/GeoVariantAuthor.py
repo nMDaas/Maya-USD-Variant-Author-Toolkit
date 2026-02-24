@@ -178,6 +178,14 @@ class GeoVariantAuthor(VariantAuthoringTool):
         self.exportBaseMeshAsUSD(targetGeo_long, file_selected)
         print(f"{targetGeo_long} exported to {file_selected}")
 
+        # Create variant for set
+        vset.AddVariant(variant_name)
+        vset.SetVariantSelection(variant_name)
+        # Go inside the variant and add the file reference
+        with vset.GetVariantEditContext():
+            self.targetPrim.GetPayloads().AddPayload(file_selected)
+        print(f"Variant '{variant_name}' authored with reference to: {file_selected}")
+
         """
         vset.AddVariant(variant_name)
 
