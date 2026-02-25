@@ -10,7 +10,6 @@
   - **ExportBaseMeshAsUSD.py**
   - **CreateGeoVariantFromUSDFile.py**
   - **DuplicateAsMayaData.py**
-- TODO: needs a User Interface
 
 ### To Create A Transform Variant Set
 - **createTransformationVariantSet.py**:  allows setting up transformation variants. uses a script to record what changes were made and adds an additional xformOpOrder to account for other transformations 
