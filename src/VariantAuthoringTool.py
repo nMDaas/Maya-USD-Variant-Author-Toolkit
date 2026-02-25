@@ -168,6 +168,7 @@ class VariantAuthoringTool(ABC):
         self.handle_vs_selection_change(ui, vsets[0].GetName())
 
     def resetUI(self, ui):
+        ui.vs_name_input.setReadOnly(False)
         ui.vs_name_input.setText("")
         for i in reversed(range(1, ui.gridLayout.count())):
             item = ui.gridLayout.itemAt(i)
