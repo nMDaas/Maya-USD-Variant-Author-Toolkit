@@ -7,7 +7,6 @@ def get_selected_usd_prim():
     # Get the current UFE (Universal Front End) selection made by user in outliner
     selection = ufe.GlobalSelection.get()
 
-    # TODO: Error should be generated if nothing was selected
     if selection.empty():
         print("Nothing selected.")
         return None
@@ -24,7 +23,6 @@ def get_selected_usd_prim():
     
     # Ensure prim is an Xform
     if (not prim.IsA(UsdGeom.Xform)):
-        #TODO: Error should be generated if XForm was not selected
         print("XForm prim must be selected for variant set creation.")
 
     return prim
@@ -34,7 +32,6 @@ def createVariantSet(Xf_selected, in_vset_name):
     vset = Xf_selected.GetVariantSets().AddVariantSet(in_vset_name)
     return vset
 
-#TODO: There should be error checking for if the variant_name already exists for the vset
 def createVariantForSet(Xf_prim, vset, variant_name, file_path):
     vset.AddVariant(variant_name)
 
@@ -51,10 +48,10 @@ Xf_selected = get_selected_usd_prim()
 Xf_path = Xf_selected.GetPath() # this is the path that is preceded by '/', so not the ufe path
 
 # Create a variant set for the XForm prim selected
-# TODO: The variant set name should come from the user 
+# INFO: The variant set name should come from the user 
 vset = createVariantSet(Xf_selected, "MyVariantSet")
 
-# TODO: variant names should come from the user
-# TODO: variant content should also come from the user (for now, file)
+# INFO: variant names should come from the user
+# INFO: variant content should also come from the user (for now, file)
 createVariantForSet(Xf_selected, vset, "vs_1", "/Users/natashadaas/Documents/USD_Switchboard_Playground/data/Kitchen_set/assets/Stove/Stove.usd")
 createVariantForSet(Xf_selected, vset, "vs_2", "/Users/natashadaas/Documents/USD_Switchboard_Playground/data/Kitchen_set/assets/KitchenTable/KitchenTable.usd")

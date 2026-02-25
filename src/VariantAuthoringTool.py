@@ -185,7 +185,6 @@ class VariantAuthoringTool(ABC):
     # VARIANT AUTHORING SPECIFIC FUNCTIONS -------------------------------------------------------
 
     # Get number variant sets for XForm
-    # TODO: Warning if XForm not selected
     def getVariantSetsOfTargetPrim(self):
         vsets = self.targetPrim.GetVariantSets()
         return vsets

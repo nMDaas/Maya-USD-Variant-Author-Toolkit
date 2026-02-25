@@ -7,7 +7,6 @@ def get_selected_usd_prim():
     # Get the current UFE (Universal Front End) selection made by user in outliner
     selection = ufe.GlobalSelection.get()
 
-    # TODO: Error should be generated if nothing was selected
     if selection.empty():
         print("Nothing selected.")
         return None
@@ -24,7 +23,6 @@ def get_selected_usd_prim():
     
     # Ensure prim is an Xform
     if (not prim.IsA(UsdGeom.Xform)):
-        #TODO: Error should be generated if XForm was not selected
         print("XForm prim must be selected for variant set creation.")
 
     return prim
@@ -35,7 +33,6 @@ def createVariantSet(Xf_selected, in_vset_name):
     return vset
 
 # Currently kind of a "dummy" implementation - num is to create spheres of different radii
-#TODO: There should be error checking for if the variant_name already exists for the vset
 def createVariantForSet(Xf_prim, vset, variant_name, file_path):
     vset.AddVariant(variant_name)
 
@@ -55,5 +52,5 @@ def createGeoVariantFromUSDFile(variantName, usd_file_path):
     # Create a variant set "GEO" for the XForm prim selected
     vset = Xf_selected.GetVariantSets().AddVariantSet("GEO")
 
-    # TODO: The USD file and variant name come from the rootPrim and exportPath variables in ExportBaseMeshAsUSD.py
+    # INFO: The USD file and variant name come from the rootPrim and exportPath variables in ExportBaseMeshAsUSD.py
     createVariantForSet(Xf_selected, vset, variantName, usd_file_path)

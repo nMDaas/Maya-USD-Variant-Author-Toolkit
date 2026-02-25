@@ -31,7 +31,7 @@ sys.path.append() above
 """
 
 # Global Variables
-# TODO: These inputs should come from user
+# INFO: These inputs should come from user
 EXPORT_PATH = "/Users/natashadaas/USD_Switchboard/Test/cubeBaseMesh3.usd"
 ROOT_PRIM = "myCubeMesh3"
 

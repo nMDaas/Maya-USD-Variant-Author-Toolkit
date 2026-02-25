@@ -54,7 +54,7 @@ def createAMaterialVariantSet(Xf_prim, vset, variant_name):
 
     with vset.GetVariantEditContext():
         binding_api = UsdShade.MaterialBindingAPI.Apply(Xf_prim)
-        # TODO: The material should be set by the user
+        # INFO: The material should be set by the user
         material_path = Sdf.Path('/mtl/UsdPreviewSurface1')
         
         # Create the relationship pointing to your material
@@ -65,7 +65,7 @@ Xf_selected = get_selected_usd_prim()
 if Xf_selected:
 
     # Create the variant sets
-    # TODO: Variant set name and variant name should come from user
+    # INFO: Variant set name and variant name should come from user
     vset = createVariantSet(Xf_selected, "CubeMat")
     createAMaterialVariantSet(Xf_selected, vset, "Blue")
 
