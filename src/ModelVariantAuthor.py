@@ -194,6 +194,10 @@ class ModelVariantAuthor(VariantAuthoringTool):
             if v_name_input_widget:
                 v_name_input = v_name_input_widget.text().strip() # strip white spaces just in case
 
+                # skip if nothing was set in row
+                if (not v_name_input) and (i not in self.usd_filepath_dict) and (i not in self.geo_dict):
+                    continue
+
                 if (not v_name_input) or (i not in self.usd_filepath_dict) or (i not in self.geo_dict):
                     ui.error_label.setText(f"ERROR: Not all variants were created. Either variant name, geometry or USD path not set")
                     ui.error_label.show()

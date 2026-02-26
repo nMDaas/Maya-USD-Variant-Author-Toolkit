@@ -147,6 +147,10 @@ class UsdFileVariantAuthor(VariantAuthoringTool):
             # This works because when populating existing variants, I didn't give it object names
             if v_name_input_widget:
                 v_name_input = v_name_input_widget.text().strip() # strip white spaces just in case
+
+                # skip if nothing was set in row
+                if (not v_name_input) and (i not in self.usd_filepath_dict):
+                    continue
                 
                 # check if variant name not entered or USD file not selected
                 if (not v_name_input) or (i not in self.usd_filepath_dict):
