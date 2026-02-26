@@ -138,6 +138,7 @@ class TransformVariantAuthor(VariantAuthoringTool):
         set_button = ui.findChild(QPushButton, f"set_button_{row_number}")
         set_button.setIcon(QIcon(str(self.pinned_icon)))
         set_button.setToolTip("Xform Transform Applied To Variant")
+        set_button.setEnabled(False)
 
         # set as read only
         v_name_input_widget.setReadOnly(True)
