@@ -48,7 +48,7 @@ if tool_root not in sys.path:
 import src.UsdFileVariantAuthor_exec_tool as tool
 tool.run()
 ''',
-    annotation="Runs Usd_File_Variant_Author",
+    annotation="USD File Variant Manager",
     sourceType="Python"
 )
 
@@ -75,7 +75,7 @@ if tool_root not in sys.path:
 import src.TransformVariantAuthor_exec_tool as tool
 tool.run()
 ''',
-    annotation="Runs Transform_Variant_Author",
+    annotation="Transform Variant Manager",
     sourceType="Python"
 )
 

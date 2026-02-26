@@ -87,7 +87,7 @@ def executeUsdFileVariantAuthor():
     window=showWindow(tool)
 
 def executeTransformVariantAuthor():
-    tool = TransformVariantAuthor("Manage Transform Variant On Target Prim")
+    tool = TransformVariantAuthor("Manage Transform Variants On Target Prim")
     window=showWindow(tool)
 
 def executeMaterialVariantAuthor():
