@@ -79,6 +79,33 @@ tool.run()
     sourceType="Python"
 )
 
+# Add button MaterialVariantAuthor_exec_tool.py ----------------------------------------------------
+import MaterialVariantAuthor_exec_tool # your main script
+
+# Remove button if it exists
+buttons = cmds.shelfLayout(shelf_name, q=True, ca=True) or []
+for btn in buttons:
+    if cmds.shelfButton(btn, q=True, label=True) == "Material_Variant_Author":
+        cmds.deleteUI(btn)
+
+cmds.shelfButton(
+    parent=shelf_name,
+    label="Material_Variant_Author",
+    imageOverlayLabel="",
+    image="MaterialVariant_AIcon.png",
+    command=f'''
+import sys
+tool_root = r"{tool_root}"
+if tool_root not in sys.path:
+    sys.path.append(tool_root)
+
+import src.MaterialVariantAuthor_exec_tool as tool
+tool.run()
+''',
+    annotation="Material Variant Manager",
+    sourceType="Python"
+)
+
 # Add button ModelVariantAuthor_exec_tool.py ----------------------------------------------------
 import ModelVariantAuthor_exec_tool # your main script
 
