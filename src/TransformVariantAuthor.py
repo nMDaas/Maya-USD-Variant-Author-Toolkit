@@ -161,7 +161,7 @@ class TransformVariantAuthor(VariantAuthoringTool):
             # if successful, change pinned icon
             set_button = ui.findChild(QPushButton, f"set_button_{row_number}")
             set_button.setIcon(QIcon(str(self.pinned_icon)))
-            set_button.setToolTip("ERROR: Xform Transform Applied To Variant")
+            set_button.setToolTip("Xform Transform Applied To Variant")
             set_button.setEnabled(False)
 
             # set as read only
