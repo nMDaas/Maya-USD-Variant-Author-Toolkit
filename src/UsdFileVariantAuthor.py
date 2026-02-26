@@ -131,6 +131,12 @@ class UsdFileVariantAuthor(VariantAuthoringTool):
         else:
             select_button.setIcon(QIcon(str(self.open_folder_icon))) 
 
+    def manage_delete_variant_set(self, ui):
+        self.resetUI(ui)
+        ui.vs_remove.hide()
+
+    # VARIANT AUTHORING SPECIFIC FUNCTIONS -------------------------------------------------------
+
     def createVariantsForSet(self, ui, vset):
         # Iterate through all num_variants
         # num_variants = ui.gridLayout.rowCount() - 1

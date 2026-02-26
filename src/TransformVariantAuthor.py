@@ -49,12 +49,14 @@ class TransformVariantAuthor(VariantAuthoringTool):
             # add radio buttons
             exists, existing_vsets = self.find_authoring_variant_sets("transform")
             newVariantOptionButton = QRadioButton("Create New Variant")
+            newVariantOptionButton.setObjectName("radio_create_new_variant")
             ui.gridLayout_vs_options.addWidget(newVariantOptionButton, 0, 0)
             newVariantOptionButton.setEnabled(True)
             newVariantOptionButton.setChecked(True)
             newVariantOptionButton.clicked.connect(partial(self.setupUserInterface_NewVariant, ui))
             if exists: # only if existing variant sets of type "transform" on targetPrim
                 existingVariantOptionButton = QRadioButton("Edit Existing Variant")
+                existingVariantOptionButton.setObjectName("radio_edit_variant")
                 ui.gridLayout_vs_options.addWidget(existingVariantOptionButton, 0, 1)  
                 existingVariantOptionButton.setEnabled(True)
                 existingVariantOptionButton.clicked.connect(partial(self.setupUserInterface_ExistingVariant, ui))
@@ -67,6 +69,22 @@ class TransformVariantAuthor(VariantAuthoringTool):
             ui.final_button.clicked.connect(partial(self.close, ui))
 
             return True
+        
+    def manage_delete_variant_set(self, ui):
+        self.resetUI(ui)
+        exists, existing_vsets = self.find_authoring_variant_sets("transform")
+        radio_create_new_variant_button = ui.findChild(QRadioButton, "radio_create_new_variant")
+        radio__edit_variant_button = ui.findChild(QRadioButton, "radio_edit_variant")
+        if not exists:
+            radio_create_new_variant_button.setEnabled(True)
+            radio_create_new_variant_button.setChecked(True)
+            self.setupUserInterface_NewVariant(ui)
+            widget = ui.findChild(QComboBox, "vs_name_dropdown")
+            radio__edit_variant_button.hide() 
+            widget.hide() 
+            ui.vs_remove.hide()
+        else:
+            self.setupUserInterface_ExistingVariant(ui)
 
     def setupUserInterface_ExistingVariant(self, ui):
         # Check if the targetPrim already has a variant of this type (transform)

@@ -93,6 +93,10 @@ class MaterialVariantAuthor(VariantAuthoringTool):
 
         setButton.clicked.connect(lambda checked=False, r=rowIndex: self.setMaterialVariantSet(ui, r))
 
+    def manage_delete_variant_set(self, ui):
+        self.resetUI(ui)
+        ui.vs_remove.hide()
+
     # VARIANT AUTHORING SPECIFIC FUNCTIONS -------------------------------------------------------
 
     # set XForm material variant for that row - linked to row number

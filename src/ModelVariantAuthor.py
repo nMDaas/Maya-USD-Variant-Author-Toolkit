@@ -176,6 +176,10 @@ class ModelVariantAuthor(VariantAuthoringTool):
         else:
             select_button.setIcon(QIcon(str(self.open_folder_icon)))
 
+    def manage_delete_variant_set(self, ui):
+        self.resetUI(ui)
+        ui.vs_remove.hide()
+
     # VARIANT AUTHORING SPECIFIC FUNCTIONS -------------------------------------------------------
 
     # Creates all the variants for the set

@@ -72,7 +72,7 @@ class VariantAuthoringTool(ABC):
         ui.vs_remove.setIcon(QIcon(str(self.remove_icon)))
         ui.vs_remove.setIconSize(QSize(22,22))
         ui.vs_remove.setFlat(True)
-        ui.vs_remove.clicked.connect(lambda checked=False: self.deleteVariant(ui))
+        ui.vs_remove.clicked.connect(lambda checked=False: self.deleteVariantSet(ui))
         ui.vs_remove.setToolTip("Delete Variant Set")
         ui.vs_remove.setCursor(Qt.PointingHandCursor)
 
@@ -158,7 +158,11 @@ class VariantAuthoringTool(ABC):
             self.add_existing_variant_row(ui, v)
 
     def populateExistingVariantSetInUI(self, ui, vsets):
-        vs_name_dropdown = QComboBox()
+        vs_name_dropdown = ui.findChild(QComboBox, "vs_name_dropdown")
+
+        if vs_name_dropdown is None:
+            vs_name_dropdown = QComboBox()
+
         for i in range(len(vsets)):
             vs_name_dropdown.addItem(vsets[i].GetName())
 
@@ -181,6 +185,10 @@ class VariantAuthoringTool(ABC):
                 if widget:
                     widget.setParent(None)
                     widget.deleteLater()
+
+    @abstractmethod
+    def manage_delete_variant_set(self, ui):
+        pass
     
     # VARIANT AUTHORING SPECIFIC FUNCTIONS -------------------------------------------------------
 
@@ -215,7 +223,7 @@ class VariantAuthoringTool(ABC):
         vset = self.targetPrim.GetVariantSets().AddVariantSet(in_vset_name)
         return vset
     
-    def deleteVariant(self, ui):
+    def deleteVariantSet(self, ui):
         # Get variant set
         vs_name = ui.vs_name_input.text()
         targetPrim_path = self.targetPrim.GetPath()
@@ -238,6 +246,8 @@ class VariantAuthoringTool(ABC):
                 vset_names.explicitItems.remove(vs_name)
                 
             print(f"Completely scrubbed variant set: {vs_name}")
+
+        self.manage_delete_variant_set(ui)
 
     def apply_pipeline_tag(self, variant_set_name, tag_name):
         vset = self.targetPrim.GetVariantSet(variant_set_name)
