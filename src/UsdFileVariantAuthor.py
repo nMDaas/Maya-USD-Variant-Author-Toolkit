@@ -144,7 +144,7 @@ class UsdFileVariantAuthor(VariantAuthoringTool):
                 
                 # check if variant name not entered or USD file not selected
                 if (not v_name_input) or (i not in self.usd_filepath_dict):
-                    ui.error_label.setText(f"Variant name or USD File not set")
+                    ui.error_label.setText(f"ERROR: Not all variants were created. Either variant name or USD file not set.")
                     ui.error_label.show()
                     return False
                 else:

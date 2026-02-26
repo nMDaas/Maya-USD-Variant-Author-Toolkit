@@ -105,6 +105,12 @@ class MaterialVariantAuthor(VariantAuthoringTool):
         # create transformation variant for set
         v_name_input_widget = ui.findChild(QLineEdit, f"variant_input_{row_number}")
         v_name_input = v_name_input_widget.text().strip()
+
+        if (not v_name_input):
+            ui.error_label.setText(f"ERROR: Variant name not set")
+            ui.error_label.show()
+            return False
+
         self.createAMaterialVariant(vset, v_name_input, material_path)
 
         self.reset_binding()
@@ -118,6 +124,9 @@ class MaterialVariantAuthor(VariantAuthoringTool):
 
         # set as read only
         v_name_input_widget.setReadOnly(True)
+
+        ui.error_label.hide()
+        return True
 
     def get_material_path(self):
         binding_api = UsdShade.MaterialBindingAPI(self.targetPrim)

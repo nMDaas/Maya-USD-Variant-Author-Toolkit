@@ -46,11 +46,11 @@ class GeoVariantAuthor(VariantAuthoringTool):
         variant_set_name = ui.vs_name_input.text()
         vset = self.createVariantSet(variant_set_name)
         
-        self.createVariantsForSet(ui, vset)
+        ret = self.createVariantsForSet(ui, vset)
 
-        self.apply_pipeline_tag(variant_set_name)
-
-        ui.close()
+        if ret is True:
+            self.apply_pipeline_tag(variant_set_name)
+            ui.close()
 
     def setupUserInterface(self, ui):
         successful = super().setupUserInterface(ui)
@@ -189,15 +189,23 @@ class GeoVariantAuthor(VariantAuthoringTool):
             # This works because when populating existing variants, I didn't give it object names
             if v_name_input_widget:
                 v_name_input = v_name_input_widget.text().strip() # strip white spaces just in case
-                file_selected = self.usd_filepath_dict[i]
-                targetGeo_long = self.geo_dict[i]
-                self.createVariant(vset, v_name_input, targetGeo_long, file_selected)
+
+                if (not v_name_input) or (i not in self.usd_filepath_dict) or (i not in self.geo_dict):
+                    ui.error_label.setText(f"ERROR: Not all variants were created. Either variant name, geometry or USD path not set")
+                    ui.error_label.show()
+                    return False
+                else:
+                    file_selected = self.usd_filepath_dict[i]
+                    targetGeo_long = self.geo_dict[i]
+                    self.createVariant(vset, v_name_input, targetGeo_long, file_selected)
 
         # set default variant as the first variant, only if the variant set is new
         if self.creatingNewVariant:
             v_name_input_widget_1 = ui.findChild(QLineEdit, f"variant_input_1")
             v_name_input_1 = v_name_input_widget_1.text().strip() 
             vset.SetVariantSelection(v_name_input_1)
+
+        return True
 
     # Creates a singular variant for a set
     def createVariant(self, vset, variant_name, targetGeo_long, file_selected):
