@@ -74,7 +74,7 @@ class MaterialVariantAuthor(VariantAuthoringTool):
         setButton.setFlat(True)
         setButton.setToolTip("Set Xform For Material Variant")
         setButton.setCursor(Qt.PointingHandCursor)
-        setButton.setIconSize(QSize(self.width*0.02, self.height*0.02))
+        setButton.setIconSize(QSize(self.width*0.025, self.height*0.025))
 
         # Get new row index
         rowIndex = ui.gridLayout.rowCount()

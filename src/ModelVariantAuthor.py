@@ -92,7 +92,7 @@ class ModelVariantAuthor(VariantAuthoringTool):
         rowIndex = ui.gridLayout.rowCount()
 
         # Setting setButton settings
-        setButton.setIconSize(QSize(self.width*0.02, self.height*0.02))
+        setButton.setIconSize(QSize(self.width*0.025, self.height*0.025))
         setButton.setFlat(True)
         # Populate names automatically if targetGeos selected
         if targetGeo_long is not None:
@@ -109,7 +109,7 @@ class ModelVariantAuthor(VariantAuthoringTool):
 
         # Setting folderButton settings
         folderButton.setIcon(QIcon(str(self.open_folder_icon)))
-        folderButton.setIconSize(QSize(self.width*0.02, self.height*0.02))
+        folderButton.setIconSize(QSize(self.width*0.025, self.height*0.025))
         folderButton.setFlat(True)
         folderButton.setToolTip("Save USD file")
         folderButton.setCursor(Qt.PointingHandCursor)
