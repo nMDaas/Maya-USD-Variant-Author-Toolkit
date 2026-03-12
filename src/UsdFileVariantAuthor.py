@@ -89,7 +89,7 @@ class UsdFileVariantAuthor(VariantAuthoringTool):
         folderButton.setFlat(True)
         folderButton.setToolTip("Select USD file")
         folderButton.setCursor(Qt.PointingHandCursor)
-        folderButton.setIconSize(QSize(self.width*0.025, self.height*0.025))
+        folderButton.setIconSize(QSize(self.width*0.02, self.height*0.02))
 
         # Get new row index
         rowIndex = ui.gridLayout.rowCount()
