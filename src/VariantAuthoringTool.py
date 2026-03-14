@@ -43,6 +43,10 @@ class VariantAuthoringTool(ABC):
         # icon paths
         self.remove_icon  = Path(__file__).parent / "icons" / "remove.png"
 
+        self.screen = QApplication.primaryScreen().geometry()
+        self.width = self.screen.width()
+        self.height = self.screen.height()
+
     # GETTERS ------------------------------------------------------------------------------
 
     def getToolName(self):
@@ -70,7 +74,7 @@ class VariantAuthoringTool(ABC):
 
         # Set the icon for the variant set remove button
         ui.vs_remove.setIcon(QIcon(str(self.remove_icon)))
-        ui.vs_remove.setIconSize(QSize(22,22))
+        ui.vs_remove.setIconSize(QSize(25, 25))
         ui.vs_remove.setFlat(True)
         ui.vs_remove.clicked.connect(lambda checked=False: self.deleteVariantSet(ui))
         ui.vs_remove.setToolTip("Delete Variant Set")
@@ -129,7 +133,7 @@ class VariantAuthoringTool(ABC):
 
         # Setting removeButton settings
         removeButton.setIcon(QIcon(str(self.remove_icon)))
-        removeButton.setIconSize(QSize(22,22))
+        removeButton.setIconSize(QSize(25, 25))
         removeButton.setFlat(True)
         removeButton.setToolTip("Delete Variant")
         removeButton.setCursor(Qt.PointingHandCursor)
