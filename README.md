@@ -48,3 +48,7 @@ In progress!
 7. The install.py script will be loaded into the Script Editor. Click the blue run button (▶) to run the script
 8. Locate and select this repository folder
 9. Click 'Save' - NatashaUSDTools should be loaded into a shelf
+
+### Attributions
+- Folder icons created by kmg design - Flaticon
+- Dirrection icons created by popcic - Flaticon
