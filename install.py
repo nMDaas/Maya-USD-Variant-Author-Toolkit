@@ -133,6 +133,6 @@ tool.run()
     sourceType="Python"
 )
 
-print("✅ NatashaUSDTools installed!")
+print("✅ Maya-USD-Variant-Authoring-Toolkit installed!")
 
 
