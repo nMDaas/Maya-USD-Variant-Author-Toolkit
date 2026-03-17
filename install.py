@@ -133,6 +133,6 @@ tool.run()
     sourceType="Python"
 )
 
-print("✅ Maya-USD-Variant-Authoring-Toolkit installed!")
+print("✅ Maya-USD-Variant-Author-Toolkit installed!")
 
 
