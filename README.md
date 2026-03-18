@@ -50,6 +50,9 @@ In progress!
 9. Once again, locate and select the Maya-USD-Variant-Author-Toolkit folder
 10. Click 'Save' - Maya_USD_Variant_Author_Toolkit should be loaded into a shelf
 
+### Tutorial Using Toaster Project
+Using the test project, these instructions walk through how to use this toolkit step-by-step:
+https://docs.google.com/document/d/1TuKM7230-BHzAjsKPTxb6etir7BXdzTmijqW81_N7Lw/edit?usp=sharing 
 
 ### Attributions
 - Folder icons created by kmg design - Flaticon
