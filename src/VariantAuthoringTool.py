@@ -118,10 +118,6 @@ class VariantAuthoringTool(ABC):
         if line_edit:
             print(f"Current text is: {line_edit.text()}")
 
-    @abstractmethod
-    def add_variant_row(self, ui):
-        pass
-
     def add_existing_variant_row(self, ui, v_name):
         label = QLabel(f"Variant: ")
         variant_name_label = QLineEdit()

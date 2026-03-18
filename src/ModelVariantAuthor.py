@@ -33,6 +33,7 @@ class ModelVariantAuthor(VariantAuthoringTool):
         # Dictionary to store where usd files for geometry will be stored
         self.usd_filepath_dict = {} # stores [row, filepath]
         self.geo_dict = {} # stores [row, geo]
+        self.geoType_dict = {} # stores [row, "scene"] or [row, "usdFile"]
 
         # icon paths
         self.open_folder_icon = Path(__file__).parent / "icons" / "open-folder.png"
@@ -54,6 +55,10 @@ class ModelVariantAuthor(VariantAuthoringTool):
 
     def setupUserInterface(self, ui):
         successful = super().setupUserInterface(ui)
+
+        #connect buttons to functions
+        ui.addGeoVariantButton.clicked.connect(partial(self.add_variant_from_scene_row, ui))
+        ui.addUSDVariantButton.clicked.connect(partial(self.add_variant_from_usd_file_row, ui))
 
         if successful is False:
             return False
@@ -80,7 +85,7 @@ class ModelVariantAuthor(VariantAuthoringTool):
             return True
         
 
-    def add_variant_row(self, ui, targetGeo_long=None):
+    def add_variant_from_scene_row(self, ui, targetGeo_long=None):
         # Create widgets
         label = QLabel(f"Variant: ")
         variant_name_line_edit = QLineEdit()
@@ -128,8 +133,44 @@ class ModelVariantAuthor(VariantAuthoringTool):
         ui.gridLayout.addWidget(setButton, rowIndex, 2)   
         ui.gridLayout.addWidget(folderButton, rowIndex, 3)   
 
+        # Save variant type to row
+        self.geoType_dict[rowIndex] = "scene"
+
         setButton.clicked.connect(lambda checked=False, r=rowIndex: self.setGeo(ui, r))
-        folderButton.clicked.connect(lambda checked=False, r=rowIndex: self.showDialogForUSDFileSelection(ui, r))  
+        folderButton.clicked.connect(lambda checked=False, r=rowIndex: self.showDialogForSavingUSDFile(ui, r))  
+
+    def add_variant_from_usd_file_row(self, ui, targetGeo_long=None):
+        # Create widgets
+        label = QLabel(f"Variant: ")
+        variant_name_line_edit = QLineEdit()
+        folderButton = QPushButton()
+
+        # Setting folderButton settings
+        folderButton.setIcon(QIcon(str(self.open_folder_icon)))
+        folderButton.setFlat(True)
+        folderButton.setToolTip("Select USD file")
+        folderButton.setCursor(Qt.PointingHandCursor)
+        folderButton.setIconSize(QSize(self.width*0.02, self.height*0.02))
+
+        # Get new row index
+        rowIndex = ui.gridLayout.rowCount()
+
+        if (rowIndex == 1 and targetGeo_long is None):
+            variant_name_line_edit.setText("Default")
+
+        # Setting object names
+        variant_name_line_edit.setObjectName(f"variant_input_{rowIndex}")
+        folderButton.setObjectName(f"select_button_{rowIndex}")
+
+        # Save variant type to row
+        self.geoType_dict[rowIndex] = "usdFile"
+
+        # Add to the grid layout in new row
+        ui.gridLayout.addWidget(label, rowIndex, 0)
+        ui.gridLayout.addWidget(variant_name_line_edit, rowIndex, 1)    
+        ui.gridLayout.addWidget(folderButton, rowIndex, 2)   
+
+        folderButton.clicked.connect(lambda checked=False, r=rowIndex: self.showDialogForUSDFileSelection(ui, r))
 
     # Set which geo is connected to the row for variant creation
     def setGeo(self, ui, row_number):
@@ -142,8 +183,8 @@ class ModelVariantAuthor(VariantAuthoringTool):
         set_button.setIcon(QIcon(str(self.pinned_icon)))
         set_button.setToolTip(targetGeo_long)
 
-    # open dialog for user to select USD file - linked to row number
-    def showDialogForUSDFileSelection(self, ui, row_number):
+    # open dialog for user to save USD file - linked to row number
+    def showDialogForSavingUSDFile(self, ui, row_number):
         if self.settings.value("defaultDirectory") is None:
             self.settings.setValue(
                 "defaultDirectory",
@@ -176,6 +217,29 @@ class ModelVariantAuthor(VariantAuthoringTool):
         else:
             select_button.setIcon(QIcon(str(self.open_folder_icon)))
 
+    # open dialog for user to select USD file - linked to row number
+    def showDialogForUSDFileSelection(self, ui, row_number):
+        if self.settings.value("defaultDirectory") is None:
+            self.settings.setValue("defaultDirectory",  cmds.workspace(query=True, rootDirectory=True))
+
+        initial_directory =  self.settings.value("defaultDirectory")
+        select_button = ui.findChild(QPushButton, f"select_button_{row_number}")
+
+        dialog = QFileDialog()
+        dialog.setOption(QFileDialog.DontUseNativeDialog, True)
+        dialog.setDirectory(initial_directory)
+        dialog.setWindowTitle("Select USD File")
+
+        # show which filename was selected if a folder was selected
+        if dialog.exec_():
+            file_selected = dialog.selectedFiles()[0]
+            self.settings.setValue("defaultDirectory",  str(Path(file_selected).parent))
+            self.usd_filepath_dict[row_number] = file_selected
+            select_button.setIcon(QIcon(str(self.folder_chosen_icon)))
+            select_button.setToolTip(file_selected)
+        else:
+            select_button.setIcon(QIcon(str(self.open_folder_icon))) 
+
     def manage_delete_variant_set(self, ui):
         self.resetUI(ui)
         ui.vs_remove.hide()
@@ -198,14 +262,25 @@ class ModelVariantAuthor(VariantAuthoringTool):
                 if (not v_name_input) and (i not in self.usd_filepath_dict) and (i not in self.geo_dict):
                     continue
 
-                if (not v_name_input) or (i not in self.usd_filepath_dict) or (i not in self.geo_dict):
-                    ui.error_label.setText(f"ERROR: Not all variants were created. Either variant name, geometry or USD path not set")
-                    ui.error_label.show()
-                    return False
+                if (self.geoType_dict[i] == "scene"):
+                    if (not v_name_input) or (i not in self.usd_filepath_dict) or (i not in self.geo_dict):
+                        ui.error_label.setText(f"ERROR: Not all variants were created. Either variant name, geometry or USD path not set")
+                        ui.error_label.show()
+                        return False
+                    else:
+                        file_selected = self.usd_filepath_dict[i]
+                        targetGeo_long = self.geo_dict[i]
+                        self.createVariantFromScene(vset, v_name_input, targetGeo_long, file_selected)
                 else:
-                    file_selected = self.usd_filepath_dict[i]
-                    targetGeo_long = self.geo_dict[i]
-                    self.createVariant(vset, v_name_input, targetGeo_long, file_selected)
+                    # self.geoType_dict[i] == "usdFile"
+                    # check if variant name not entered or USD file not selected
+                    if (not v_name_input) or (i not in self.usd_filepath_dict):
+                        ui.error_label.setText(f"ERROR: Not all variants were created. Either variant name or USD file not set.")
+                        ui.error_label.show()
+                        return False
+                    else:
+                        file_selected = self.usd_filepath_dict[i]
+                        self.createVariantFromFile(vset, v_name_input, file_selected)
 
         # set default variant as the first variant, only if the variant set is new
         if self.creatingNewVariant:
@@ -216,7 +291,7 @@ class ModelVariantAuthor(VariantAuthoringTool):
         return True
 
     # Creates a singular variant for a set
-    def createVariant(self, vset, variant_name, targetGeo_long, file_selected):
+    def createVariantFromScene(self, vset, variant_name, targetGeo_long, file_selected):
         # Export targetGeo to USD file
         self.exportBaseMeshAsUSD(targetGeo_long, file_selected)
         print(f"{targetGeo_long} exported to {file_selected}")
@@ -227,7 +302,20 @@ class ModelVariantAuthor(VariantAuthoringTool):
         # Go inside the variant and add the file reference
         with vset.GetVariantEditContext():
             self.targetPrim.GetPayloads().AddPayload(file_selected)
-        print(f"Variant '{variant_name}' authored with reference to: {file_selected}")   
+        print(f"Variant '{variant_name}' authored with reference to: {file_selected}")  
+
+    def createVariantFromFile(self, vset, variant_name, file_selected):
+        vset.AddVariant(variant_name)
+
+        vset.SetVariantSelection(variant_name)
+
+        # Go inside the variant and add the file reference
+        with vset.GetVariantEditContext():
+            self.targetPrim.GetReferences().AddReference(file_selected)
+            attr = self.targetPrim.CreateAttribute("variant_set_pipeline_tag", Sdf.ValueTypeNames.String)
+            attr.Set("usd_file")
+        
+        print(f"Variant '{variant_name}' authored with reference to: {file_selected}") 
 
     def exportBaseMeshAsUSD(self, targetGeo_long, export_path):
         targetGeo = targetGeo_long.split("|")[-1]
