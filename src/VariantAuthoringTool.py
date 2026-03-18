@@ -161,6 +161,8 @@ class VariantAuthoringTool(ABC):
         if vs_name_dropdown is None:
             vs_name_dropdown = QComboBox()
 
+        vs_name_dropdown.clear()
+
         for i in range(len(vsets)):
             vs_name_dropdown.addItem(vsets[i].GetName())
 
