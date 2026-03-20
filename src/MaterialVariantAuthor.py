@@ -16,6 +16,8 @@ import mayaUsd.ufe
 from pxr import Usd, UsdGeom, Gf, UsdShade, Sdf
 from PySide6.QtCore import QSettings
 from abc import ABC, abstractmethod
+from usd_utils import get_selected_prim
+from errorDialog_exec_tool import errorDialog_exec_tool
 
 my_script_dir = "/Users/natashadaas/USD_Switchboard/src" 
 if my_script_dir not in sys.path:
@@ -30,6 +32,8 @@ class MaterialVariantAuthor(VariantAuthoringTool):
     def __init__(self, _tool_name):
         super().__init__(_tool_name)
 
+        self.targetPrim = get_selected_prim() # set targetPrim
+
         self.usd_filepath_dict = {} # stores [row, filepath]
 
         # icon paths
@@ -43,6 +47,19 @@ class MaterialVariantAuthor(VariantAuthoringTool):
 
     def setupUserInterface(self, ui):
         successful = super().setupUserInterface(ui)
+
+        if self.targetPrim is None:
+            errorTitle = "Error: No Target Prim Selected"
+            errorMessage = """
+            A target prim must be selected to create a variant set.
+            """
+            errorDialog_exec_tool(errorTitle, errorMessage)
+            return False
+        
+        ui.targetPrim.setText(f"Target Prim: {self.getTargetPrimPath()}")
+
+        #connect buttons to functions
+        ui.addVariantButton.clicked.connect(partial(self.add_variant_row, ui))
 
         if successful is False:
             return False

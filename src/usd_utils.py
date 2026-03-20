@@ -35,7 +35,7 @@ def get_selected_usd_xform_prim():
     prim = mayaUsd.ufe.ufePathToPrim(ufe_path_string)
 
     if not prim or not prim.IsValid():
-        errorTitle = "Error: No Target Prim Selected"
+        errorTitle = "Error: No Target Xform Prim Selected"
         errorMessage = """
         A target prim inside the USD Stage must be selected.
         """
@@ -44,5 +44,32 @@ def get_selected_usd_xform_prim():
     # Ensure prim is an Xform
     if (not prim.IsA(UsdGeom.Xform)):
         return None
+
+    return prim
+
+# Gets the selected target prim in the outliner
+def get_selected_prim():
+    # Get the current UFE (Universal Front End) selection made by user in outliner
+    selection = ufe.GlobalSelection.get()
+
+    if selection.empty():
+        return None
+    
+    # Get last item in the selection
+    selected_item = list(selection)[-1]
+
+    # Convert UFE path object to a string path
+    ufe_path_obj = selected_item.path()
+    ufe_path_string = ufe.PathString.string(ufe_path_obj)
+
+    # Access prim via string path
+    prim = mayaUsd.ufe.ufePathToPrim(ufe_path_string)
+
+    if not prim or not prim.IsValid():
+        errorTitle = "Error: No Target Prim Selected"
+        errorMessage = """
+        A target prim inside the USD Stage must be selected.
+        """
+        errorDialog_exec_tool(errorTitle, errorMessage)
 
     return prim

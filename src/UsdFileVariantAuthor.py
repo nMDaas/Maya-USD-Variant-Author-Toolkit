@@ -108,29 +108,6 @@ class UsdFileVariantAuthor(VariantAuthoringTool):
 
         folderButton.clicked.connect(lambda checked=False, r=rowIndex: self.showDialogForUSDFileSelection(ui, r))
 
-    # open dialog for user to select USD file - linked to row number
-    def showDialogForUSDFileSelection(self, ui, row_number):
-        if self.settings.value("defaultDirectory") is None:
-            self.settings.setValue("defaultDirectory",  cmds.workspace(query=True, rootDirectory=True))
-
-        initial_directory =  self.settings.value("defaultDirectory")
-        select_button = ui.findChild(QPushButton, f"select_button_{row_number}")
-
-        dialog = QFileDialog()
-        dialog.setOption(QFileDialog.DontUseNativeDialog, True)
-        dialog.setDirectory(initial_directory)
-        dialog.setWindowTitle("Select USD File")
-
-        # show which filename was selected if a folder was selected
-        if dialog.exec_():
-            file_selected = dialog.selectedFiles()[0]
-            self.settings.setValue("defaultDirectory",  str(Path(file_selected).parent))
-            self.usd_filepath_dict[row_number] = file_selected
-            select_button.setIcon(QIcon(str(self.folder_chosen_icon)))
-            select_button.setToolTip(file_selected)
-        else:
-            select_button.setIcon(QIcon(str(self.open_folder_icon))) 
-
     def manage_delete_variant_set(self, ui):
         self.resetUI(ui)
         ui.vs_remove.hide()
