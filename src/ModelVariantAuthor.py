@@ -16,6 +16,8 @@ import mayaUsd.ufe
 from pxr import Usd, UsdGeom, Gf, UsdShade, Sdf
 from PySide6.QtCore import QSettings
 from abc import ABC, abstractmethod
+from usd_utils import get_selected_usd_xform_prim
+from errorDialog_exec_tool import errorDialog_exec_tool
 
 my_script_dir = "/Users/natashadaas/USD_Switchboard/src" 
 if my_script_dir not in sys.path:
@@ -29,6 +31,8 @@ class ModelVariantAuthor(VariantAuthoringTool):
 
     def __init__(self, _tool_name):
         super().__init__(_tool_name)
+
+        self.targetPrim = get_selected_usd_xform_prim() # set targetPrim - the XForm that will have the variant
 
         # Dictionary to store where usd files for geometry will be stored
         self.usd_filepath_dict = {} # stores [row, filepath]
@@ -55,6 +59,16 @@ class ModelVariantAuthor(VariantAuthoringTool):
 
     def setupUserInterface(self, ui):
         successful = super().setupUserInterface(ui)
+
+        if self.targetPrim is None:
+            errorTitle = "Error: No Target Xform Prim Selected"
+            errorMessage = """
+            A target prim of type Xform must be selected to create a variant set.
+            """
+            errorDialog_exec_tool(errorTitle, errorMessage)
+            return False
+        
+        ui.targetPrim.setText(f"Target Prim: {self.getTargetPrimPath()}")
 
         #connect buttons to functions
         ui.addGeoVariantButton.clicked.connect(partial(self.add_variant_from_scene_row, ui))

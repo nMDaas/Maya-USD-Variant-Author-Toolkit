@@ -22,16 +22,12 @@ my_script_dir = "/Users/natashadaas/USD_Switchboard/src"
 if my_script_dir not in sys.path:
     sys.path.append(my_script_dir)
 
-from usd_utils import get_selected_usd_xform_prim
-from errorDialog_exec_tool import errorDialog_exec_tool
-
 # ------------------------------------------------------------------------------------------
 
 class VariantAuthoringTool(ABC):
     @abstractmethod
     def __init__(self, _tool_name):
         self.tool_name = _tool_name
-        self.targetPrim = get_selected_usd_xform_prim() # set targetPrim - the XForm that will have the variant
         self.proxy_shape_path = "|stage1|stageShape1"
         self.stage = mayaUsd.ufe.getStage(self.proxy_shape_path)
         
@@ -61,16 +57,6 @@ class VariantAuthoringTool(ABC):
     def setupUserInterface(self, ui):
         ui.setWindowTitle(self.getToolName())
         ui.setObjectName(self.getToolName())
-
-        if self.targetPrim is None:
-            errorTitle = "Error: No Target Prim Selected"
-            errorMessage = """
-            A target prim of type Xform must be selected to create a variant set.
-            """
-            errorDialog_exec_tool(errorTitle, errorMessage)
-            return False
-
-        ui.targetPrim.setText(f"Target Prim: {self.getTargetPrimPath()}")
 
         # Set the icon for the variant set remove button
         ui.vs_remove.setIcon(QIcon(str(self.remove_icon)))
@@ -162,6 +148,8 @@ class VariantAuthoringTool(ABC):
 
         if vs_name_dropdown is None:
             vs_name_dropdown = QComboBox()
+
+        vs_name_dropdown.clear()
 
         for i in range(len(vsets)):
             vs_name_dropdown.addItem(vsets[i].GetName())
