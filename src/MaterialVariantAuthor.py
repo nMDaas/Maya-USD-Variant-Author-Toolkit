@@ -114,15 +114,34 @@ class MaterialVariantAuthor(VariantAuthoringTool):
         self.resetUI(ui)
         ui.vs_remove.hide()
 
+    def resetUI(self, ui):
+        ui.vs_name_input.setReadOnly(False)
+        ui.vs_name_input.setText("")
+        for i in reversed(range(1, ui.gridLayout.count())):
+            item = ui.gridLayout.itemAt(i)
+            if item:
+                widget = item.widget()
+                if widget:
+                    widget.setParent(None)
+                    widget.deleteLater()
+
     # VARIANT AUTHORING SPECIFIC FUNCTIONS -------------------------------------------------------
 
     # set XForm material variant for that row - linked to row number
     def setMaterialVariantSet(self, ui, row_number):
+        # verify material assignment
+        material_path = self.get_material_path()
+        if not material_path:
+            errorTitle = "Error: No Material Assigned"
+            errorMessage = """
+            A material must be assigned to the target prim.
+            """
+            errorDialog_exec_tool(errorTitle, errorMessage)
+            return False
+        
         # create set
         ret, vset = self.createVariantSet(ui)
         if ret is True:
-            material_path = self.get_material_path()
-
             # create transformation variant for set
             v_name_input_widget = ui.findChild(QLineEdit, f"variant_input_{row_number}")
             v_name_input = v_name_input_widget.text().strip()
@@ -159,7 +178,7 @@ class MaterialVariantAuthor(VariantAuthoringTool):
         if material:
             return material.GetPath() # returns something similar to '/mtl/UsdPreviewSurface1'
         else:
-            return "No material bound to this Prim."
+            return False
 
 
     def createAMaterialVariant(self, vset, variant_name, material_path):

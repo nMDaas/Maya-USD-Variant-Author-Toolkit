@@ -258,6 +258,17 @@ class ModelVariantAuthor(VariantAuthoringTool):
         self.resetUI(ui)
         ui.vs_remove.hide()
 
+    def resetUI(self, ui):
+        ui.vs_name_input.setReadOnly(False)
+        ui.vs_name_input.setText("")
+        for i in reversed(range(2, ui.gridLayout.count())):
+            item = ui.gridLayout.itemAt(i)
+            if item:
+                widget = item.widget()
+                if widget:
+                    widget.setParent(None)
+                    widget.deleteLater()
+
     # VARIANT AUTHORING SPECIFIC FUNCTIONS -------------------------------------------------------
 
     # Creates all the variants for the set
