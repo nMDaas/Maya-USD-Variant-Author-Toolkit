@@ -5,6 +5,14 @@ In progress!
 <table>
   <tr valign="middle">
     <td>
+      <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/ModelVariant_AIcon.png" width="50px">
+    </td>
+    <td>
+      Modeling Variant Manager
+    </td>
+  </tr>
+  <tr valign="middle">
+    <td>
       <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/TransformVariant_AIcon.png" width="50px">
     </td>
     <td>
@@ -19,24 +27,7 @@ In progress!
       Material Variant Manager
     </td>
   </tr>
-  <tr valign="middle">
-    <td>
-      <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/ModelVariant_AIcon.png" width="50px">
-    </td>
-    <td>
-      Modeling Variant Manager
-    </td>
-  </tr>
-  <tr valign="middle">
-    <td>
-      <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/UsdFileVariant_AIcon.png" width="50px">
-    </td>
-    <td>
-      USD File Variant Manager
-    </td>
-  </tr>
 </table>
-
 
 ### Installation
 1. Download and unzip this repository in a location of your choosing
@@ -50,9 +41,12 @@ In progress!
 9. Once again, locate and select the Maya-USD-Variant-Author-Toolkit folder
 10. Click 'Save' - Maya_USD_Variant_Author_Toolkit should be loaded into a shelf
 
+### Documentation
+[HELP | Maya-USD-Variant-Author-Toolkit](https://docs.google.com/document/d/1ipKrDLCjgtbGJnS1Inhu1NR4tvY33CLJlLu5xJTuQ54/edit?usp=sharing)
+
 ### Tutorial Using Toaster Project
 Using the test project, these instructions walk through how to use this toolkit step-by-step:
-https://docs.google.com/document/d/1TuKM7230-BHzAjsKPTxb6etir7BXdzTmijqW81_N7Lw/edit?usp=sharing 
+- [TUTORIAL (beginner) | Maya USD Variant Author Toolkit](https://docs.google.com/document/d/1s75NcT0jil2NYX_dR0RY3g7EMvloyraf9dzsZMUVQ-M/edit?usp=sharing)
 
 ### Attributions
 - Folder icons created by kmg design - Flaticon
