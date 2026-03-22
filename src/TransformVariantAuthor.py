@@ -153,6 +153,17 @@ class TransformVariantAuthor(VariantAuthoringTool):
 
         setButton.clicked.connect(lambda checked=False, r=rowIndex: self.setTransformVariant(ui, r))
 
+    def resetUI(self, ui):
+        ui.vs_name_input.setReadOnly(False)
+        ui.vs_name_input.setText("")
+        for i in reversed(range(1, ui.gridLayout.count())):
+            item = ui.gridLayout.itemAt(i)
+            if item:
+                widget = item.widget()
+                if widget:
+                    widget.setParent(None)
+                    widget.deleteLater()
+
     # VARIANT AUTHORING SPECIFIC FUNCTIONS -------------------------------------------------------
 
     # set XForm transform as variant for that row - linked to row number

@@ -114,6 +114,17 @@ class MaterialVariantAuthor(VariantAuthoringTool):
         self.resetUI(ui)
         ui.vs_remove.hide()
 
+    def resetUI(self, ui):
+        ui.vs_name_input.setReadOnly(False)
+        ui.vs_name_input.setText("")
+        for i in reversed(range(1, ui.gridLayout.count())):
+            item = ui.gridLayout.itemAt(i)
+            if item:
+                widget = item.widget()
+                if widget:
+                    widget.setParent(None)
+                    widget.deleteLater()
+
     # VARIANT AUTHORING SPECIFIC FUNCTIONS -------------------------------------------------------
 
     # set XForm material variant for that row - linked to row number
