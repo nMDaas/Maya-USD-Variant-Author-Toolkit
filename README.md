@@ -48,7 +48,49 @@ In progress!
 Using the test project, these instructions walk through how to use this toolkit step-by-step:
 - [TUTORIAL (beginner) | Maya USD Variant Author Toolkit](https://docs.google.com/document/d/1s75NcT0jil2NYX_dR0RY3g7EMvloyraf9dzsZMUVQ-M/edit?usp=sharing)
 
-### Attributions
+### Troubleshooting
+<table>
+  <tr valign="middle">
+    <td>
+      🛠️ TOOL(S)
+    </td>
+    <td>
+      🐛 ISSUE 
+    </td>
+    <td>
+      ✅ FIX 
+    </td>
+  </tr>
+  <tr valign="middle">
+    <td>
+      <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/TransformVariant_AIcon.png" width="50px">
+    </td>
+    <td>
+     Unexpected transform applied when variant created on prim with USD reference
+    </td>
+    <td>
+      <ul>
+        <li>Referenced USD asset should be exported from (0,0,0) with transforms frozen and history deleted </li> 
+      </ul>
+    </td>
+  </tr>
+  <tr valign="middle">
+    <td>
+      <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/MaterialVariant_AIcon.png" width="50px">
+    </td>
+    <td>
+      Materials not applied to prim after creating variant set
+    </td>
+    <td>
+      <ul>
+        <li>In LookdevX, ensure that the image nodes for each material in the variant set are pointing to the right path in sourceimages/</li> 
+        <li>With the prim selected, set 'Strength' in the attribute editor to 'Stronger than descendants'</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+### Credits
 - Folder icons created by kmg design - Flaticon
 - Files and folders icons created by Gajah Mada - Flaticon
 - Dirrection icons created by popcic - Flaticon
