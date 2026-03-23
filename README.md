@@ -79,7 +79,7 @@ Using the test project, these instructions walk through how to use this toolkit 
       <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/MaterialVariant_AIcon.png" width="50px">
     </td>
     <td>
-      Materials not applied to prim after creating variant set
+      Prim material not applied/changing after creating/toggling variants
     </td>
     <td>
       <ul>
