@@ -3,7 +3,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtUiTools import *
 from PySide6.QtWidgets import *
-from PySide6.QtWidgets import QPushButton
+from PySide6.QtWidgets import QPushButton, QMessageBox, QApplication
 from functools import partial
 import maya.cmds as cmds
 from maya import OpenMayaUI
@@ -14,7 +14,7 @@ import math
 import os
 import ufe
 import mayaUsd.ufe
-from pxr import Usd, UsdGeom, Sdf
+from pxr import Usd, UsdGeom, Sdf, Gf
 from PySide6.QtCore import QSettings
 from abc import ABC, abstractmethod
 from usd_utils import get_selected_usd_xform_prim
@@ -166,39 +166,87 @@ class TransformVariantAuthor(VariantAuthoringTool):
 
     # VARIANT AUTHORING SPECIFIC FUNCTIONS -------------------------------------------------------
 
-    # set XForm transform as variant for that row - linked to row number
-    def setTransformVariant(self, ui, row_number):
-        # create set
-        ret, vset = self.createVariantSet(ui)
+    def show_confirmation(self, title, message):
+        # Create the message box
+        msg_box = QMessageBox()
+        msg_box.setWindowTitle(title)
+        msg_box.setText(message)
+        
+        # Define the standard buttons
+        msg_box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        msg_box.setDefaultButton(QMessageBox.StandardButton.No)
+        msg_box.setIcon(QMessageBox.Icon.Question)
 
-        if ret is True:
-            # create transformation variant for set
-            v_name_input_widget = ui.findChild(QLineEdit, f"variant_input_{row_number}")
-            v_name_input = v_name_input_widget.text().strip()
+        # Execute and catch the result
+        response = msg_box.exec()
 
-            if (not v_name_input):
-                ui.error_label.setText(f"Variant name not set")
-                ui.error_label.show()
-                return False
-            
-            self.createATransformationVariantSet(self.targetPrim, vset, v_name_input)
-
-            self.apply_permanent_order()
-            self.apply_pipeline_tag(ui, "transform")
-
-            # if successful, change pinned icon
-            set_button = ui.findChild(QPushButton, f"set_button_{row_number}")
-            set_button.setIcon(QIcon(str(self.pinned_icon)))
-            set_button.setToolTip("Xform Transform Applied To Variant")
-            set_button.setEnabled(False)
-
-            # set as read only
-            v_name_input_widget.setReadOnly(True)
-
-            ui.error_label.hide()
+        if response == QMessageBox.StandardButton.Yes:
             return True
         else:
             return False
+        
+    # Check if self.targetPrim has any transformations
+    def has_transform_deltas(self):
+        xformable = UsdGeom.Xformable(self.targetPrim)
+        ordered_ops = xformable.GetOrderedXformOps()
+        
+        for op in ordered_ops:
+            val = op.Get()
+            op_type = op.GetOpType()
+
+            # Check for Translation/Rotation/Scale deviations
+            if op_type == UsdGeom.XformOp.TypeTranslate:
+                if not Gf.IsClose(val, Gf.Vec3d(0), 1e-6): return True
+            elif op_type == UsdGeom.XformOp.TypeScale:
+                if not Gf.IsClose(val, Gf.Vec3d(1), 1e-6): return True
+            elif "Rotate" in str(op_type): # since there are many rotates (eg. RotateXYZ, RotateX, RotateZYX)
+                if not Gf.IsClose(val, val * 0, 1e-6): return True
+            elif op_type == UsdGeom.XformOp.TypeTransform: # in case prim is using a combined matrix
+                if not Gf.IsClose(val, Gf.Matrix4d(1), 1e-6): return True
+                
+        return False
+
+    # set XForm transform as variant for that row - linked to row number
+    def setTransformVariant(self, ui, row_number):
+        result = True # default
+
+        # If self.targetPrim has no transformations, get confirmation from the user
+        if not self.has_transform_deltas():
+            result = self.show_confirmation("Confirmation Window", f"There are no transformations on {self.getTargetPrimPath()}.\n\nTransformation may have been accidentally applied to the wrong Xform/prim. Do you still want to proceed?")
+
+        # If result is still True, continue
+        if result == True:
+            # create set
+            ret, vset = self.createVariantSet(ui)
+
+            if ret is True:
+                # create transformation variant for set
+                v_name_input_widget = ui.findChild(QLineEdit, f"variant_input_{row_number}")
+                v_name_input = v_name_input_widget.text().strip()
+
+                if (not v_name_input):
+                    ui.error_label.setText(f"Variant name not set")
+                    ui.error_label.show()
+                    return False
+                
+                self.createATransformationVariantSet(self.targetPrim, vset, v_name_input)
+
+                self.apply_permanent_order()
+                self.apply_pipeline_tag(ui, "transform")
+
+                # if successful, change pinned icon
+                set_button = ui.findChild(QPushButton, f"set_button_{row_number}")
+                set_button.setIcon(QIcon(str(self.pinned_icon)))
+                set_button.setToolTip("Xform Transform Applied To Variant")
+                set_button.setEnabled(False)
+
+                # set as read only
+                v_name_input_widget.setReadOnly(True)
+
+                ui.error_label.hide()
+                return True
+            else:
+                return False
 
     def createATransformationVariantSet(self, targetPrim, vset, variant_name):
         # Get the manual overrides currently on the prim
