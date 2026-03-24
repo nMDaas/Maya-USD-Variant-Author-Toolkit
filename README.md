@@ -51,7 +51,7 @@ Using the test project, these instructions walk through how to use this toolkit 
 ### Troubleshooting
 <table>
   <tr valign="middle">
-    <td>
+     <td width="180">
       🛠️ TOOL(S)
     </td>
     <td>
@@ -85,6 +85,21 @@ Using the test project, these instructions walk through how to use this toolkit 
       <ul>
         <li>In LookdevX, ensure that the image nodes for each material in the variant set are pointing to the right path in sourceimages/</li> 
         <li>With the prim selected, set 'Strength' in the attribute editor to 'Stronger than descendants'</li>
+      </ul>
+    </td>
+  </tr>
+  <tr valign="middle">
+    <td>
+      <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/ModelVariant_AIcon.png" width="50px"><img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/TransformVariant_AIcon.png" width="50px"><img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/MaterialVariant_AIcon.png" width="50px">
+    </td>
+    <td>
+      Undo does not work with toolkit actions
+    </td>
+    <td>
+      <ul>
+        <li>Currently, there is no support to undo an action that was taken using the toolkit</li> 
+        <li>However, it is possible to edit a variant set. This includes: deleting the variant set, deleting a variant in the set, and adding a new variant to an existing set</li>
+        <li>For further help on editing variant sets, see Documentation</li>
       </ul>
     </td>
   </tr>
