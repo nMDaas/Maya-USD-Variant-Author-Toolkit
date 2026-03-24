@@ -66,11 +66,26 @@ Using the test project, these instructions walk through how to use this toolkit 
       <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/TransformVariant_AIcon.png" width="50px">
     </td>
     <td>
-     Unexpected transform applied when variant created on prim with USD reference
+     Unexpected transform applied when transform variant created on prim with USD reference
     </td>
     <td>
       <ul>
-        <li>Referenced USD asset should be exported from (0,0,0) with transforms frozen and history deleted </li> 
+        <li>Referenced USD asset should be exported from (0,0,0) with transforms frozen and history deleted</li> 
+      </ul>
+    </td>
+  </tr>
+  <tr valign="middle">
+    <td>
+      <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/TransformVariant_AIcon.png" width="50px">
+    </td>
+    <td>
+      When attempting to create another transform variant set on the target prim, transformations seem "locked" in the viewport
+    </td>
+    <td>
+      <ul>
+        <li>You should only be creating multiple transform variant sets on the target prim if you are planning on separating its translations, rotations and scaling into different variant sets</li>
+        <li>This issue will most commonly occur if the target prim has been translated from its original position, either when created or referenced</li>
+          <li>In the case of translation, create a variant set for translation. For example, variant set "Location" with variants "Default" and "SceneLocation"</li>
       </ul>
     </td>
   </tr>
