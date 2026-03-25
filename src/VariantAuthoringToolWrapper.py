@@ -24,7 +24,6 @@ if my_script_dir not in sys.path:
     sys.path.append(my_script_dir)
 
 from VariantAuthoringTool import VariantAuthoringTool
-from UsdFileVariantAuthor import UsdFileVariantAuthor
 from TransformVariantAuthor import TransformVariantAuthor
 from MaterialVariantAuthor import MaterialVariantAuthor
 from ModelVariantAuthor import ModelVariantAuthor
@@ -75,10 +74,6 @@ def showWindow(tool, gui):
         # show the QT ui
         ui.show()
         return ui
-
-def executeUsdFileVariantAuthor():
-    tool = UsdFileVariantAuthor("Manage USD File Variants on Target Prim")
-    window=showWindow(tool, "gui.ui")
 
 def executeTransformVariantAuthor():
     tool = TransformVariantAuthor("Manage Transform Variants On Target Prim")
