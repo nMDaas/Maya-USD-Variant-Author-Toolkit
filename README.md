@@ -31,15 +31,14 @@ In progress!
 
 ### Installation
 1. Download and unzip this repository in a location of your choosing
-2. Rename the unzipped folder to Maya-USD-Variant-Author-Toolkit
-3. With Maya opened, open the Script Editor
-4. Click on 'File', and from the dropdown list, select 'Open Script'
-5. With the Load Script dialog opened, locate the Maya-USD-Variant-Author-Toolkit folder
-6. Click into the folder, and then select the install.py file
-7. Click 'Open' - the install.py script will be loaded into the Script Editor
-8. Click the blue run button (▶) at the top of the Script Editor to run the script
-9. Once again, locate and select the Maya-USD-Variant-Author-Toolkit folder
-10. Click 'Save' - Maya_USD_Variant_Author_Toolkit should be loaded into a shelf
+2. With an opened Maya scene, open the Script Editor
+3. Click on 'File', and from the dropdown list, select 'Open Script'
+4. With the Load Script dialog opened, locate the unzipped folder
+5. Click into the folder, and then select the install.py file
+6. Click 'Open' - the install.py script will be loaded into the Script Editor
+7. Click the blue run button (▶) at the top of the Script Editor to run the script
+8. When the dialog opens, click 'Save'
+9. The Maya_USD_Variant_Author_Toolkit should be loaded into a shelf
 
 ### Documentation
 [HELP | Maya-USD-Variant-Author-Toolkit](https://docs.google.com/document/d/1ipKrDLCjgtbGJnS1Inhu1NR4tvY33CLJlLu5xJTuQ54/edit?usp=sharing)
