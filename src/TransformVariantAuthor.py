@@ -194,15 +194,30 @@ class TransformVariantAuthor(VariantAuthoringTool):
             val = op.Get()
             op_type = op.GetOpType()
 
-            # Check for Translation/Rotation/Scale deviations
-            if op_type == UsdGeom.XformOp.TypeTranslate:
-                if not Gf.IsClose(val, Gf.Vec3d(0), 1e-6): return True
-            elif op_type == UsdGeom.XformOp.TypeScale:
-                if not Gf.IsClose(val, Gf.Vec3d(1), 1e-6): return True
-            elif "Rotate" in str(op_type): # since there are many rotates (eg. RotateXYZ, RotateX, RotateZYX)
-                if not Gf.IsClose(val, val * 0, 1e-6): return True
-            elif op_type == UsdGeom.XformOp.TypeTransform: # in case prim is using a combined matrix
-                if not Gf.IsClose(val, Gf.Matrix4d(1), 1e-6): return True
+            # Check if val has been set (translate/rotate/scale)
+            if val is not None:
+                # Get the constructor for the specific type (e.g., Gf.Vec3f, Gf.Vec3d)
+                # to ensure IsClose compares identical C++ types.
+                val_type = type(val)
+
+                # Check for Translation/Rotation/Scale deviations
+                if op_type == UsdGeom.XformOp.TypeTranslate:
+                    # Checks if val is close to (0,0,0) with tolerance of 1e-6
+                    if not Gf.IsClose(val, val_type(0), 1e-6): return True
+
+                elif op_type == UsdGeom.XformOp.TypeScale:
+                    # Checks if val is close to (1, 1, 1) with tolerance of 1e-6
+                    if not Gf.IsClose(val, val_type(1), 1e-6): return True
+
+                elif "Rotate" in str(op_type): # since there are many rotates (eg. RotateXYZ, RotateX, RotateZYX)
+                    # val * 0 creates the "zero version" of whatever type val is (identity rotation)
+                    # Checks if val is close to identity rotation with tolerance of 1e-6
+                    if not Gf.IsClose(val, val * 0, 1e-6): return True
+
+                elif op_type == UsdGeom.XformOp.TypeTransform: # in case prim is using a combined matrix
+                    # val_type(1) for a GfMatrix results in an Identity Matrix
+                    # Checks if val is close to identity matrix with tolerance of 1e-6
+                    if not Gf.IsClose(val, val_type(1), 1e-6): return True
                 
         return False
 
