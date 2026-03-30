@@ -203,8 +203,15 @@ class VariantAuthoringTool(ABC):
     def createVariantSet(self, ui):
         variant_set_name = ui.vs_name_input.text()
 
+        # Check if variant set name not set
         if not variant_set_name:
             ui.error_label.setText(f"ERROR: Variant set name is empty.")
+            ui.error_label.show()
+            return False, None
+        
+        # Check if variant set name contains spaces      
+        if " " in variant_set_name:
+            ui.error_label.setText(f"ERROR: Variant set name cannot have spaces.")
             ui.error_label.show()
             return False, None
 
