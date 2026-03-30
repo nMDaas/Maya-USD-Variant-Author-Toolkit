@@ -42,8 +42,8 @@ class ModelVariantAuthor(VariantAuthoringTool):
         # icon paths
         self.open_folder_icon = Path(__file__).parent / "icons" / "open-folder.png"
         self.folder_chosen_icon  = Path(__file__).parent / "icons" / "open-folder-confirmed.png"
-        self.pin_icon = Path(__file__).parent / "icons" / "pin.png"
-        self.pinned_icon  = Path(__file__).parent / "icons" / "pin-confirmed.png"
+        self.geo_unset_icon = Path(__file__).parent / "icons" / "geo_unset.png"
+        self.geo_set_icon  = Path(__file__).parent / "icons" / "geo_set.png"
 
     # UI FUNCTIONS -------------------------------------------------------------------------
 
@@ -117,12 +117,12 @@ class ModelVariantAuthor(VariantAuthoringTool):
         if targetGeo_long is not None:
             variantName = targetGeo_long.split("|")[-1]
             variant_name_line_edit.setText(variantName)
-            setButton.setIcon(QIcon(str(self.pinned_icon)))
+            setButton.setIcon(QIcon(str(self.geo_set_icon)))
             # Add obj to dictionary
             self.geo_dict[rowIndex] = targetGeo_long
             setButton.setToolTip(targetGeo_long)
         else:
-            setButton.setIcon(QIcon(str(self.pin_icon))) 
+            setButton.setIcon(QIcon(str(self.geo_unset_icon))) 
             setButton.setToolTip("Set Object Geo For Variant")
             setButton.setCursor(Qt.PointingHandCursor)
 
@@ -194,7 +194,7 @@ class ModelVariantAuthor(VariantAuthoringTool):
 
         # if successful, change pinned icon
         set_button = ui.findChild(QPushButton, f"set_button_{row_number}")
-        set_button.setIcon(QIcon(str(self.pinned_icon)))
+        set_button.setIcon(QIcon(str(self.geo_set_icon)))
         set_button.setToolTip(targetGeo_long)
 
     # open dialog for user to save USD file - linked to row number

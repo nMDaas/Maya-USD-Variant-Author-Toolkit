@@ -37,8 +37,8 @@ class MaterialVariantAuthor(VariantAuthoringTool):
         self.usd_filepath_dict = {} # stores [row, filepath]
 
         # icon paths
-        self.pin_icon = Path(__file__).parent / "icons" / "pin.png"
-        self.pinned_icon  = Path(__file__).parent / "icons" / "pin-confirmed.png"
+        self.mat_unset_icon = Path(__file__).parent / "icons" / "mat_unset.png"
+        self.mat_set_icon  = Path(__file__).parent / "icons" / "mat_set.png"
 
     # UI FUNCTIONS -------------------------------------------------------------------------
 
@@ -87,7 +87,7 @@ class MaterialVariantAuthor(VariantAuthoringTool):
         setButton = QPushButton()
 
         # Setting setButton settings
-        setButton.setIcon(QIcon(str(self.pin_icon)))
+        setButton.setIcon(QIcon(str(self.mat_unset_icon)))
         setButton.setFlat(True)
         setButton.setToolTip("Set Xform For Material Variant")
         setButton.setCursor(Qt.PointingHandCursor)
@@ -158,7 +158,7 @@ class MaterialVariantAuthor(VariantAuthoringTool):
 
             # if successful, change pinned icon
             set_button = ui.findChild(QPushButton, f"set_button_{row_number}")
-            set_button.setIcon(QIcon(str(self.pinned_icon)))
+            set_button.setIcon(QIcon(str(self.mat_set_icon)))
             set_button.setToolTip(material_path.pathString)
             set_button.setEnabled(False)
 
