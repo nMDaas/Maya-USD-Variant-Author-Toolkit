@@ -63,6 +63,20 @@ Using the test project, these instructions walk through how to use this toolkit 
   </tr>
   <tr valign="middle">
     <td>
+      <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/ModelVariant_AIcon.png" width="50px">
+    </td>
+    <td>
+     Instead of smoothed version, unsmoothed version of in-scene model used for modeling variant
+    </td>
+    <td>
+      <ul>
+        <li>Permanently smooth the in-scene model before assigning it to the variant</li> 
+        <li>For further details on this, see Documentation</li>
+      </ul>
+    </td>
+  </tr>
+  <tr valign="middle">
+    <td>
       <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/TransformVariant_AIcon.png" width="50px">
     </td>
     <td>
