@@ -1,4 +1,5 @@
 import sys
+from PySide6 import QtCore
 from PySide6.QtCore import * 
 from PySide6.QtGui import *
 from PySide6.QtUiTools import *
@@ -160,7 +161,8 @@ class MaterialVariantAuthor(VariantAuthoringTool):
             set_button = ui.findChild(QPushButton, f"set_button_{row_number}")
             set_button.setIcon(QIcon(str(self.mat_set_icon)))
             set_button.setToolTip(material_path.pathString)
-            set_button.setEnabled(False)
+            #set_button.setEnabled(False)
+            set_button.setAttribute(QtCore.Qt.WA_TransparentForMouseEvents, True)
 
             # set as read only
             v_name_input_widget.setReadOnly(True)

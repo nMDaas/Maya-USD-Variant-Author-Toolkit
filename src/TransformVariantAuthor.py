@@ -1,4 +1,5 @@
 import sys
+from PySide6 import QtCore
 from PySide6.QtCore import * 
 from PySide6.QtGui import *
 from PySide6.QtUiTools import *
@@ -36,8 +37,8 @@ class TransformVariantAuthor(VariantAuthoringTool):
         self.targetPrim = get_selected_usd_xform_prim() # set targetPrim - the XForm that will have the variant
 
         # icon paths
-        self.pin_icon = Path(__file__).parent / "icons" / "pin.png"
-        self.pinned_icon  = Path(__file__).parent / "icons" / "pin-confirmed.png"
+        self.trans_unset_icon = Path(__file__).parent / "icons" / "trans_unset.png"
+        self.trans_set_icon  = Path(__file__).parent / "icons" / "trans_set.png"
 
     # UI FUNCTIONS -------------------------------------------------------------------------
 
@@ -130,7 +131,7 @@ class TransformVariantAuthor(VariantAuthoringTool):
         setButton = QPushButton()
 
         # Setting setButton settings
-        setButton.setIcon(QIcon(str(self.pin_icon)))
+        setButton.setIcon(QIcon(str(self.trans_unset_icon)))
         setButton.setFlat(True)
         setButton.setToolTip("Set Xform For Transform Variant")
         setButton.setCursor(Qt.PointingHandCursor)
@@ -251,9 +252,10 @@ class TransformVariantAuthor(VariantAuthoringTool):
 
                 # if successful, change pinned icon
                 set_button = ui.findChild(QPushButton, f"set_button_{row_number}")
-                set_button.setIcon(QIcon(str(self.pinned_icon)))
+                set_button.setIcon(QIcon(str(self.trans_set_icon)))
                 set_button.setToolTip("Xform Transform Applied To Variant")
-                set_button.setEnabled(False)
+                #set_button.setEnabled(False)
+                set_button.setAttribute(QtCore.Qt.WA_TransparentForMouseEvents, True)
 
                 # set as read only
                 v_name_input_widget.setReadOnly(True)
