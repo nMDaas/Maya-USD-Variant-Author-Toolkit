@@ -127,7 +127,7 @@ Using the test project, these instructions walk through how to use this toolkit 
       🚧 LIMITATION 
     </td>
     <td>
-      🔍 DETAILS
+      🔍 DETAILS & WORKAROUND
     </td>
   </tr>
   <tr valign="middle">
