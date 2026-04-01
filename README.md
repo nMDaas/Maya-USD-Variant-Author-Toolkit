@@ -103,6 +103,21 @@ Using the test project, these instructions walk through how to use this toolkit 
   </tr>
   <tr valign="middle">
     <td>
+      <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/TransformVariant_AIcon.png" width="50px">
+    </td>
+    <td>
+     Tool freezes when attempting to create a transform variant
+    </td>
+    <td>
+      <ul>
+        <li>This can happen if you are trying to create a transform variant with no authored transforms</li>
+        <li>A confirmation window pops up to confirm this action, but if the window is hidden behind the tool, the tool will seem "frozen"</li>
+        <li>Press the escape key to close the confirmation window, move the tool UI to the side, and then retry creating the transform variant</li>
+      </ul>
+    </td>
+  </tr>
+  <tr valign="middle">
+    <td>
       <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/MaterialVariant_AIcon.png" width="50px">
     </td>
     <td>
