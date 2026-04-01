@@ -243,6 +243,7 @@ class ModelVariantAuthor(VariantAuthoringTool):
         dialog.setOption(QFileDialog.DontUseNativeDialog, True)
         dialog.setDirectory(initial_directory)
         dialog.setWindowTitle("Select USD File")
+        dialog.setWindowFlags(dialog.windowFlags() | Qt.WindowStaysOnTopHint)
 
         # show which filename was selected if a folder was selected
         if dialog.exec_():
