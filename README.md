@@ -1,7 +1,6 @@
-## USD Variant Authoring Tools for Maya
-In progress!
+## Maya USD Variant Author Toolkit
 
-### Variant Authoring Management Tools
+### Variant Authoring Tools Within Toolkit
 <table>
   <tr valign="middle">
     <td>
@@ -116,18 +115,49 @@ Using the test project, these instructions walk through how to use this toolkit 
       </ul>
     </td>
   </tr>
+</table>
+
+### Limitations
+<table>
+  <tr valign="middle">
+     <td width="180">
+      🛠️ TOOL(S)
+    </td>
+    <td>
+      🚧 LIMITATION 
+    </td>
+    <td>
+      🔍 DETAILS
+    </td>
+  </tr>
+  <tr valign="middle">
+    <td>
+      <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/TransformVariant_AIcon.png" width="50px"><img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/MaterialVariant_AIcon.png" width="50px">
+    </td>
+    <td>
+      Editing Variant Sets & Variants
+    </td>
+    <td>
+      <ul>
+        <li>For these 2 tools, variants are created individually and one at a time for the variant set rather than all at once (for further details, see Documentation)</li>
+        <li>There is no support to be able to immediately edit a variant or variant set right after its creation</li>
+        <li>To edit, the tool must be closed and reopened for the same prim/Xform</li>
+        <li>This  limitation applies even while editing, when creating a new variant within an existing variant set</li>
+      </ul>
+    </td>
+  </tr>
   <tr valign="middle">
     <td>
       <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/ModelVariant_AIcon.png" width="50px"><img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/TransformVariant_AIcon.png" width="50px"><img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/MaterialVariant_AIcon.png" width="50px">
     </td>
     <td>
-      Undo does not work with toolkit actions
+      Undo Action
     </td>
     <td>
       <ul>
         <li>Currently, there is no support to undo an action that was taken using the toolkit</li> 
-        <li>However, it is possible to edit a variant set. This includes: deleting the variant set, deleting a variant in the set, and adding a new variant to an existing set</li>
-        <li>For further help on editing variant sets, see Documentation</li>
+          <li>However, it is possible to edit a variant set. This includes: deleting the variant set, deleting a variant in the set, and adding a new variant to an existing set</li>
+          <li>For further help on editing variant sets, see Documentation</li>
       </ul>
     </td>
   </tr>
