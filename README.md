@@ -41,7 +41,7 @@ In progress!
 9. The Maya_USD_Variant_Author_Toolkit should be loaded into a shelf
 
 ### Documentation
-[HELP | Maya-USD-Variant-Author-Toolkit](https://docs.google.com/document/d/1ipKrDLCjgtbGJnS1Inhu1NR4tvY33CLJlLu5xJTuQ54/edit?usp=sharing)
+[OVERVIEW | Maya-USD-Variant-Author-Toolkit](https://docs.google.com/document/d/1ipKrDLCjgtbGJnS1Inhu1NR4tvY33CLJlLu5xJTuQ54/edit?usp=sharing)
 
 ### Tutorial Using Toaster Project
 Using the test project, these instructions walk through how to use this toolkit step-by-step:
