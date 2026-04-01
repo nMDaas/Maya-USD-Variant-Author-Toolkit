@@ -161,6 +161,24 @@ Using the test project, these instructions walk through how to use this toolkit 
       </ul>
     </td>
   </tr>
+  <tr valign="middle">
+    <td>
+      <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/ModelVariant_AIcon.png" width="50px"><img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/TransformVariant_AIcon.png" width="50px"><img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/MaterialVariant_AIcon.png" width="50px">
+    </td>
+    <td>
+      Removing Variant Entry Rows
+    </td>
+    <td>
+      <ul>
+        <li>Currently, there is no support to remove a variant entry row after it has been created</li> 
+        <li>However, based on the tool, this is managed:</li> 
+        <ul>
+          <li>Modeling Variant Manager: If an entry row for a variant has no information attached to it, the entry row is ignored when 'Create Variants' is clicked</li>
+          <li>Transform & Material Variant Manager: Since variants are created individually, an entry row that is no longer needed can be ignored by simply not creating the variant. See Documentation for more details</li>
+        </ul>
+      </ul>
+    </td>
+  </tr>
 </table>
 
 ### Credits
