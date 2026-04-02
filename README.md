@@ -42,9 +42,10 @@
 ### Documentation
 [DOCUMENTATION | Maya-USD-Variant-Author-Toolkit](https://docs.google.com/document/d/1ipKrDLCjgtbGJnS1Inhu1NR4tvY33CLJlLu5xJTuQ54/edit?usp=sharing)
 
-### Toolkit Walkthrough Using Toaster Project
-Using the test project, these instructions walk through how to use this toolkit step-by-step:
+### Toolkit Walkthrough Using Demo Project
+Using the toaster demo project, walk through how to use this toolkit step-by-step:
 - [WALKTHROUGH (beginner) | Maya USD Variant Author Toolkit](https://docs.google.com/document/d/1s75NcT0jil2NYX_dR0RY3g7EMvloyraf9dzsZMUVQ-M/edit?usp=sharing)
+- [WALKTHROUGH | Maya USD Variant Author Toolkit](https://docs.google.com/document/d/1LW54N3gUeOCaahD8Y2WB5Fya-YyWR1A2DpITPggd4vY/edit?usp=sharing)
 
 ### Troubleshooting
 <table>
