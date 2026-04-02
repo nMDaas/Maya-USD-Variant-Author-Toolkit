@@ -36,7 +36,7 @@
 5. Click into the folder, and then select the install.py file
 6. Click 'Open' - the install.py script will be loaded into the Script Editor
 7. Click the blue run button (▶) at the top of the Script Editor to run the script
-8. When the dialog opens, click 'Save'
+8. When the dialog opens again, ensure you are inside the unzipped folder and click 'Save'
 9. The Maya_USD_Variant_Author_Toolkit should be loaded into a shelf
 
 ### Documentation
