@@ -177,6 +177,7 @@ class TransformVariantAuthor(VariantAuthoringTool):
         msg_box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
         msg_box.setDefaultButton(QMessageBox.StandardButton.No)
         msg_box.setIcon(QMessageBox.Icon.Question)
+        msg_box.setWindowFlags(msg_box.windowFlags() | Qt.WindowStaysOnTopHint)
 
         # Execute and catch the result
         response = msg_box.exec()
