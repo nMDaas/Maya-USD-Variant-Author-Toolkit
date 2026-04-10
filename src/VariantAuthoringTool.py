@@ -23,8 +23,6 @@ class VariantAuthoringTool(ABC):
     @abstractmethod
     def __init__(self, _tool_name):
         self.tool_name = _tool_name
-        self.proxy_shape_path = "|stage1|stageShape1"
-        self.stage = mayaUsd.ufe.getStage(self.proxy_shape_path)
         
         self.creatingNewVariant = True # keeps track of whether we are creating a new variant or not
 
@@ -246,8 +244,7 @@ class VariantAuthoringTool(ABC):
         attr = self.targetPrim.GetAttribute("variant_set_pipeline_tag")
         variant_names = vset.GetVariantNames()
 
-        stage = self.targetPrim.GetStage()
-        target_layer = stage.GetRootLayer()
+        target_layer = self.stage.GetRootLayer()
 
         for var_name in variant_names:
             vset.SetVariantSelection(var_name)

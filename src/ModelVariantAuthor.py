@@ -28,6 +28,7 @@ class ModelVariantAuthor(VariantAuthoringTool):
         super().__init__(_tool_name)
 
         self.targetPrim = get_selected_usd_xform_prim() # set targetPrim - the XForm that will have the variant
+        self.stage = self.targetPrim.GetStage()
 
         # Dictionary to store where usd files for geometry will be stored
         self.usd_filepath_dict = {} # stores [row, filepath]

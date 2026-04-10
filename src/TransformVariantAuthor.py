@@ -31,6 +31,7 @@ class TransformVariantAuthor(VariantAuthoringTool):
         super().__init__(_tool_name)
 
         self.targetPrim = get_selected_usd_xform_prim() # set targetPrim - the XForm that will have the variant
+        self.stage = self.targetPrim.GetStage()
 
         # icon paths
         self.trans_unset_icon = Path(__file__).parent / "icons" / "trans_unset.png"
@@ -296,12 +297,10 @@ class TransformVariantAuthor(VariantAuthoringTool):
             print(f"Prim already has attribute")
             return
         
-        else:
-            stage = self.targetPrim.GetStage()
-            
-            target_layer = stage.GetRootLayer()
+        else:            
+            target_layer = self.stage.GetRootLayer()
 
-            with Usd.EditContext(stage, target_layer):
+            with Usd.EditContext(self.stage, target_layer):
                 xformable = UsdGeom.Xformable(self.targetPrim)
 
                 tOp = xformable.AddTranslateOp()

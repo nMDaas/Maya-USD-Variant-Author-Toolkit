@@ -29,6 +29,7 @@ class MaterialVariantAuthor(VariantAuthoringTool):
         super().__init__(_tool_name)
 
         self.targetPrim = get_selected_prim() # set targetPrim
+        self.stage = self.targetPrim.GetStage()
 
         self.usd_filepath_dict = {} # stores [row, filepath]
 
@@ -183,15 +184,12 @@ class MaterialVariantAuthor(VariantAuthoringTool):
         vset.AddVariant(variant_name)
         vset.SetVariantSelection(variant_name)
         
-        proxy_shape_path = "|stage1|stageShape1"
-        stage = mayaUsd.ufe.getStage(proxy_shape_path)
-
         with vset.GetVariantEditContext():
             binding_api = UsdShade.MaterialBindingAPI.Apply(self.targetPrim)
             material_path = Sdf.Path(material_path)
             
             # Create the relationship pointing to your material
-            binding_api.Bind(UsdShade.Material.Get(stage, material_path))
+            binding_api.Bind(UsdShade.Material.Get(self.stage, material_path))
 
     def reset_binding(self):
         rel = self.targetPrim.GetRelationship("material:binding")
