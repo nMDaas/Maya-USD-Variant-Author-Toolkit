@@ -1,4 +1,3 @@
-import sys
 from PySide6.QtCore import * 
 from PySide6.QtGui import *
 from PySide6.QtUiTools import *
@@ -19,10 +18,6 @@ from abc import ABC, abstractmethod
 from usd_utils import get_selected_usd_xform_prim
 from errorDialog_exec_tool import errorDialog_exec_tool
 
-my_script_dir = "/Users/natashadaas/USD_Switchboard/src" 
-if my_script_dir not in sys.path:
-    sys.path.append(my_script_dir)
-
 from VariantAuthoringTool import VariantAuthoringTool
 
 # ------------------------------------------------------------------------------------------
@@ -33,6 +28,7 @@ class ModelVariantAuthor(VariantAuthoringTool):
         super().__init__(_tool_name)
 
         self.targetPrim = get_selected_usd_xform_prim() # set targetPrim - the XForm that will have the variant
+        self.stage = self.targetPrim.GetStage()
 
         # Dictionary to store where usd files for geometry will be stored
         self.usd_filepath_dict = {} # stores [row, filepath]

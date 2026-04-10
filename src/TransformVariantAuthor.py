@@ -21,10 +21,6 @@ from abc import ABC, abstractmethod
 from usd_utils import get_selected_usd_xform_prim
 from errorDialog_exec_tool import errorDialog_exec_tool
 
-my_script_dir = "/Users/natashadaas/USD_Switchboard/src" 
-if my_script_dir not in sys.path:
-    sys.path.append(my_script_dir)
-
 from VariantAuthoringTool import VariantAuthoringTool
 
 # ------------------------------------------------------------------------------------------
@@ -35,6 +31,7 @@ class TransformVariantAuthor(VariantAuthoringTool):
         super().__init__(_tool_name)
 
         self.targetPrim = get_selected_usd_xform_prim() # set targetPrim - the XForm that will have the variant
+        self.stage = self.targetPrim.GetStage()
 
         # icon paths
         self.trans_unset_icon = Path(__file__).parent / "icons" / "trans_unset.png"
@@ -300,12 +297,10 @@ class TransformVariantAuthor(VariantAuthoringTool):
             print(f"Prim already has attribute")
             return
         
-        else:
-            stage = self.targetPrim.GetStage()
-            
-            target_layer = stage.GetRootLayer()
+        else:            
+            target_layer = self.stage.GetRootLayer()
 
-            with Usd.EditContext(stage, target_layer):
+            with Usd.EditContext(self.stage, target_layer):
                 xformable = UsdGeom.Xformable(self.targetPrim)
 
                 tOp = xformable.AddTranslateOp()

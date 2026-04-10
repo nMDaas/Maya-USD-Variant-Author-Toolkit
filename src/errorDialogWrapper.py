@@ -18,11 +18,6 @@ import ufe
 import mayaUsd.ufe
 from pxr import Usd, UsdGeom
 
-import sys
-my_script_dir = "/Users/natashadaas/USD_Switchboard/src" 
-if my_script_dir not in sys.path:
-    sys.path.append(my_script_dir)
-
 def one_undo(func):
     """
     Decorator - guarantee close chunk.
