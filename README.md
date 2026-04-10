@@ -45,7 +45,7 @@
 ### Toolkit Walkthrough Using Demo Project
 Using the toaster demo project, walk through how to use this toolkit step-by-step:
 - Document version: [WALKTHROUGH | Maya USD Variant Author Toolkit](https://docs.google.com/document/d/1s75NcT0jil2NYX_dR0RY3g7EMvloyraf9dzsZMUVQ-M/edit?usp=sharing)
-- Video version:
+- Video version: Recording now!
 
 ### Troubleshooting
 <table>
