@@ -21,10 +21,6 @@ from abc import ABC, abstractmethod
 from usd_utils import get_selected_usd_xform_prim
 from errorDialog_exec_tool import errorDialog_exec_tool
 
-my_script_dir = "/Users/natashadaas/USD_Switchboard/src" 
-if my_script_dir not in sys.path:
-    sys.path.append(my_script_dir)
-
 from VariantAuthoringTool import VariantAuthoringTool
 
 # ------------------------------------------------------------------------------------------

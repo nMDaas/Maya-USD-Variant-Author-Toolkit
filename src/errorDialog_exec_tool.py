@@ -5,14 +5,6 @@
 
 import sys
 
-#SET THIS FOLDER to the parent folder that you've downloaded the repository to
-#or ensure that the parent folder is added to your PYTHONPATH
-folder = '/Users/natashadaas/USD_Switchboard'
-
-#check if folder is part of PYTHONPATH and if not, add it
-if folder not in sys.path:
-    sys.path.append(folder)
-
 if 'src' in sys.modules:
     del sys.modules['src']
 if 'src.errorDialogWrapper' in sys.modules:

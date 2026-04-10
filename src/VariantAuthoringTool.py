@@ -1,4 +1,3 @@
-import sys
 from PySide6.QtCore import * 
 from PySide6.QtGui import *
 from PySide6.QtUiTools import *
@@ -17,10 +16,6 @@ from pxr import Usd, UsdGeom, Sdf
 from PySide6.QtCore import QSettings
 from abc import ABC, abstractmethod
 import re
-
-my_script_dir = "/Users/natashadaas/USD_Switchboard/src" 
-if my_script_dir not in sys.path:
-    sys.path.append(my_script_dir)
 
 # ------------------------------------------------------------------------------------------
 
