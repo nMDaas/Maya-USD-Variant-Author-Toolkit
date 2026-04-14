@@ -1,6 +1,7 @@
 ## Maya USD Variant Author Toolkit
 
-### Variant Authoring Tools Within Toolkit
+An open-source custom shelf to support variant authoring within Maya. Tools available within toolkit shelf:
+
 <table>
   <tr valign="middle">
     <td>
@@ -28,7 +29,7 @@
   </tr>
 </table>
 
-### Installation
+## Installation
 1. Download and unzip this repository in a location of your choosing
 2. With an opened Maya scene, open the Script Editor
 3. Click on 'File', and from the dropdown list, select 'Open Script'
@@ -39,15 +40,15 @@
 8. When a dialog opens again, ensure you are inside the unzipped folder and click 'Save'
 9. The Maya_USD_Variant_Author_Toolkit should be loaded into a shelf
 
-### Documentation
+## Documentation
 [DOCUMENTATION | Maya-USD-Variant-Author-Toolkit](https://docs.google.com/document/d/1ipKrDLCjgtbGJnS1Inhu1NR4tvY33CLJlLu5xJTuQ54/edit?usp=sharing)
 
-### Toolkit Walkthrough Using Demo Project
-Using the toaster demo project, walk through how to use this toolkit step-by-step:
+## Toolkit Walkthrough: Demo Project
+Learn how to use this toolkit step-by-step! Beginner-friendly for USD users and those with limited Maya experience.
 - Document version: [WALKTHROUGH | Maya USD Variant Author Toolkit](https://docs.google.com/document/d/1s75NcT0jil2NYX_dR0RY3g7EMvloyraf9dzsZMUVQ-M/edit?usp=sharing)
 - Video version: Recording now!
 
-### Troubleshooting
+## Troubleshooting
 <table>
   <tr valign="middle">
      <td width="180">
@@ -118,7 +119,7 @@ Using the toaster demo project, walk through how to use this toolkit step-by-ste
   </tr>
 </table>
 
-### Limitations
+## Limitations
 <table>
   <tr valign="middle">
      <td width="180">
@@ -182,7 +183,14 @@ Using the toaster demo project, walk through how to use this toolkit step-by-ste
   </tr>
 </table>
 
-### Credits
+## Contributing
+This project is open source, and contributions are welcome! If there are features/improvements you’d like to see or bugs that need fixing, feel free to open a pull request.
+
+## Further Questions/Comments/Concerns?
+For additional questions, troubleshooting help, bugs or errors, feel free to create an issue on GitHub or contact Natasha Daas on [LinkedIn](https://www.linkedin.com/in/natashamishradaas/)
+
+
+## Credits
 - Folder icons created by kmg design - Flaticon
 - Files and folders icons created by Gajah Mada - Flaticon
 - Dirrection icons created by popcic - Flaticon
