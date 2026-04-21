@@ -43,6 +43,11 @@ def get_selected_usd_xform_prim():
     
     # Ensure prim is an Xform
     if (not prim.IsA(UsdGeom.Xform)):
+        errorTitle = "Error: No Target Xform Prim Selected"
+        errorMessage = """
+        The target prim selected is not an Xform.
+        """
+        errorDialog_exec_tool(errorTitle, errorMessage)
         return None
 
     return prim
