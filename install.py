@@ -41,11 +41,11 @@ cmds.shelfButton(
     image="ModelVariant_AIcon.png",
     command=f'''
 import sys
-tool_root = r"{tool_root}"
-if tool_root not in sys.path:
-    sys.path.append(tool_root)
+script_folder = r"{script_folder}"
+if script_folder not in sys.path:
+    sys.path.append(script_folder)
 
-import src.ModelVariantAuthor_exec_tool as tool
+import ModelVariantAuthor_exec_tool as tool
 tool.run()
 ''',
     annotation="Modeling Variant Manager",
@@ -68,9 +68,9 @@ cmds.shelfButton(
     image="TransformVariant_AIcon.png",
     command=f'''
 import sys
-tool_root = r"{tool_root}"
-if tool_root not in sys.path:
-    sys.path.append(tool_root)
+script_folder = r"{script_folder}"
+if script_folder not in sys.path:
+    path.append(script_folder)
 
 import src.TransformVariantAuthor_exec_tool as tool
 tool.run()
@@ -95,11 +95,11 @@ cmds.shelfButton(
     image="MaterialVariant_AIcon.png",
     command=f'''
 import sys
-tool_root = r"{tool_root}"
-if tool_root not in sys.path:
-    sys.path.append(tool_root)
+script_folder = r"{script_folder}"
+if script_folder not in sys.path:
+    sys.path.append(script_folder)
 
-import src.MaterialVariantAuthor_exec_tool as tool
+import MaterialVariantAuthor_exec_tool as tool
 tool.run()
 ''',
     annotation="Material Variant Manager",
