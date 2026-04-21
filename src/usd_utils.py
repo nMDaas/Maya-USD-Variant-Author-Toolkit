@@ -22,6 +22,11 @@ def get_selected_usd_xform_prim():
     selection = ufe.GlobalSelection.get()
 
     if selection.empty():
+        errorTitle = "Error: No Target Prim Selected"
+        errorMessage = """
+        A target prim inside the USD Stage must be selected.
+        """
+        errorDialog_exec_tool(errorTitle, errorMessage)
         return None
     
     # Get last item in the selection
