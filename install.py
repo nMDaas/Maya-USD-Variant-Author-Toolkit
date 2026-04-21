@@ -70,9 +70,9 @@ cmds.shelfButton(
 import sys
 script_folder = r"{script_folder}"
 if script_folder not in sys.path:
-    path.append(script_folder)
+    sys.path.append(script_folder)
 
-import src.TransformVariantAuthor_exec_tool as tool
+import TransformVariantAuthor_exec_tool as tool
 tool.run()
 ''',
     annotation="Transform Variant Manager",
