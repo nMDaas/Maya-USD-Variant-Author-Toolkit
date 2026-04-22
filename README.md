@@ -23,7 +23,7 @@ An open-source custom shelf to support variant authoring within Maya. Tools avai
 </td>
   
 <td valign="top">
-<img width="600" alt="ToolkitVisualOptimized" src="https://github.com/user-attachments/assets/333e6014-30b2-4f56-bda2-6831e16547bd" />
+<img width="500" alt="ToolkitVisualOptimized" src="https://github.com/user-attachments/assets/333e6014-30b2-4f56-bda2-6831e16547bd" />
 </td>
 
 </tr>
