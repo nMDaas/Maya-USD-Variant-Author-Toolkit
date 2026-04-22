@@ -2,31 +2,31 @@
 
 An open-source custom shelf to support variant authoring within Maya. Tools available within toolkit shelf:
 
+<table border="0">
+<tr>
+
+<td valign="top">
 <table>
-  <tr valign="middle">
-    <td>
-      <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/ModelVariant_AIcon.png" width="50px">
-    </td>
-    <td>
-      Modeling Variant Manager
-    </td>
-  </tr>
-  <tr valign="middle">
-    <td>
-      <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/TransformVariant_AIcon.png" width="50px">
-    </td>
-    <td>
-      Transform Variant Manager
-    </td>
-  </tr>
-  <tr valign="middle">
-    <td>
-      <img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/MaterialVariant_AIcon.png" width="50px">
-    </td>
-    <td>
-      Material Variant Manager
-    </td>
-  </tr>
+<tr valign="middle">
+<td><img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/ModelVariant_AIcon.png" width="50px"></td>
+<td>Modeling Variant Manager</td>
+</tr>
+<tr valign="middle">
+<td><img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/TransformVariant_AIcon.png" width="50px"></td>
+<td>Transform Variant Manager</td>
+</tr>
+<tr valign="middle">
+<td><img src="https://github.com/nMDaas/USD_Switchboard/blob/main/icons/MaterialVariant_AIcon.png" width="50px"></td>
+<td>Material Variant Manager</td>
+</tr>
+</table>
+</td>
+  
+<td valign="top">
+<img width="600" alt="ToolkitVisualOptimized" src="https://github.com/user-attachments/assets/333e6014-30b2-4f56-bda2-6831e16547bd" />
+</td>
+
+</tr>
 </table>
 
 ## Installation
