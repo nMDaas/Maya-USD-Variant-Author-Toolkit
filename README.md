@@ -195,3 +195,5 @@ For additional questions, troubleshooting help, bugs or errors, feel free to cre
 - Files and folders icons created by Gajah Mada - Flaticon
 - Dirrection icons created by popcic - Flaticon
 - Warning icons created by Rakib Hassan Rahim - Flaticon
+- Pointer icons created by Amazona Adorada - Flaticon
+- Cursor icons created by Freepik - Flaticon
