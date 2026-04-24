@@ -45,7 +45,7 @@ An open-source custom shelf to support variant authoring within Maya. Tools avai
 
 ## Toolkit Walkthrough: Demo Project
 Learn how to use this toolkit step-by-step! Beginner-friendly for USD users and those with limited Maya experience.
-- Document version: [WALKTHROUGH | Maya USD Variant Author Toolkit](https://docs.google.com/document/d/1s75NcT0jil2NYX_dR0RY3g7EMvloyraf9dzsZMUVQ-M/edit?usp=sharing)
+- Written version: [WALKTHROUGH | Maya USD Variant Author Toolkit](https://docs.google.com/document/d/1s75NcT0jil2NYX_dR0RY3g7EMvloyraf9dzsZMUVQ-M/edit?usp=sharing)
 - Video version: [VIDEO WALKTHROUGH | Maya USD Variant Author Toolkit](https://youtu.be/g_c-OypIcpw?si=4LpFAuWirQQp4fr_)
 
 ## Troubleshooting
